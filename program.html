@@ -571,9 +571,7 @@ const programs={
 
   document.getElementById('ph-facts').innerHTML =
     `<div class="fact-item"><div class="fact-label">Тривалість навчання</div><div class="fact-val">${d.duration}</div></div>` +
-    `<div class="fact-item"><div class="fact-label">Форма навчання</div><div class="fact-val">${d.form}</div></div>` +
-    `<div class="fact-item"><div class="fact-label">Спеціальність</div><div class="fact-val">${d.spec}</div></div>` +
-    `<div class="fact-item"><div class="fact-label">Мова викладання</div><div class="fact-val">${d.lang}</div></div>`;
+    `<div class="fact-item"><div class="fact-label">Спеціальність</div><div class="fact-val">${d.spec}</div></div>`;
 
   document.getElementById('pm-about').innerHTML = d.about.map(t => `<p>${t}</p>`).join('');
 
