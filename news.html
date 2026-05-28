@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title id="doc-title">Новини — ТНУ</title>
+<title>Новини — ТНУ</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@ button{font-family:inherit;cursor:pointer;}
 .nav-item{height:100%;display:flex;align-items:center;position:relative;}
 .nav-item>a{padding:0 16px;height:100%;display:flex;align-items:center;font-size:15px;font-weight:500;color:var(--text);border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
 .nav-item>a:hover{color:var(--navy);border-bottom-color:var(--navy);}
-.nav-item.active>a,.nav-item.open>a{color:var(--navy);}
+.nav-item.active>a{color:var(--navy);border-bottom-color:var(--navy);}
 .nav-right{display:flex;align-items:center;gap:10px;}
 .btn-search{width:36px;height:36px;background:transparent;border:none;color:var(--navy);display:flex;align-items:center;justify-content:center;border-radius:6px;}
 .btn-apply{height:36px;padding:0 18px;background:var(--navy);color:#fff;font-size:13px;font-weight:600;border:none;transition:background .15s;border-radius:6px;}
@@ -76,47 +76,38 @@ button{font-family:inherit;cursor:pointer;}
 .search-panel-close{background:transparent;border:none;color:var(--muted);font-size:26px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;transition:color .15s;}
 .search-panel-close:hover{color:var(--navy);}
 
-/* BREADCRUMB */
-.breadcrumb{height:40px;border-bottom:1px solid var(--border);display:flex;align-items:center;font-size:13px;color:var(--muted);}
-.breadcrumb>.container{display:flex;align-items:center;width:100%;}
-.breadcrumb a{color:var(--muted);}
-.breadcrumb a:hover{color:var(--navy);text-decoration:underline;}
-.breadcrumb span{margin:0 6px;}
+/* PAGE HEADER */
+.page-header{padding:40px 0 32px;border-bottom:1px solid var(--border);}
+.page-header h1{font-size:32px;font-weight:700;color:var(--navy);letter-spacing:-.3px;}
 
-/* ARTICLE */
-.article-wrap{max-width:760px;margin:0 auto;padding:52px 24px 72px;}
-.article-meta{font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
-.article-meta span{margin:0 8px;color:var(--border);}
-.article h1{font-size:34px;font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:24px;letter-spacing:-.3px;}
-.article-lead{font-size:18px;color:var(--text);line-height:1.7;margin-bottom:32px;}
-.article-cover{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;margin-bottom:32px;display:block;background:var(--gray);}
-.article p{font-size:16px;color:var(--text);line-height:1.75;margin-bottom:22px;}
-.article-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:32px 0;}
-.article-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;display:block;background:var(--gray);}
-.article-footer{border-top:1px solid var(--border);padding-top:22px;margin-top:44px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
-.article-tags{display:flex;gap:8px;flex-wrap:wrap;}
-.tag{padding:4px 12px;border:1px solid var(--border);font-size:12px;color:var(--navy);border-radius:6px;}
-.article-share{display:flex;align-items:center;gap:12px;font-size:14px;}
-.article-share span{color:var(--muted);}
-.article-share a{color:var(--navy);font-weight:500;}
-.article-share a:hover{text-decoration:underline;}
+/* FEATURED — top 2 news with photos */
+.news-featured{padding:40px 0;}
+.news-featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;}
+.nf-card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:box-shadow .2s;}
+.nf-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);}
+.nf-img{aspect-ratio:16/9;overflow:hidden;background:var(--gray);}
+.nf-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;}
+.nf-card:hover .nf-img img{transform:scale(1.03);}
+.nf-body{padding:20px 22px 24px;}
+.nf-meta{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.nf-title{font-size:18px;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:10px;display:block;}
+.nf-card:hover .nf-title{text-decoration:underline;}
+.nf-excerpt{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:16px;}
+.nf-read{font-size:13px;font-weight:600;color:var(--navy);}
 
-/* MORE NEWS */
-.more-news{background:var(--gray);padding:56px 0;}
-.more-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
-.more-head h2{font-size:26px;font-weight:700;color:var(--navy);}
-.more-link{font-size:13px;font-weight:600;color:var(--navy);}
-.more-link:hover{text-decoration:underline;}
-.more-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;background:#fff;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
-.more-card{padding:24px;border-right:1px solid var(--border);}
-.more-card:last-child{border-right:none;}
-.more-card-img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;display:block;margin-bottom:14px;background:var(--gray);}
-.more-meta{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
-.more-title{font-size:16px;font-weight:600;color:var(--navy);line-height:1.35;display:block;margin-bottom:8px;}
-.more-title:hover{text-decoration:underline;}
-.more-excerpt{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:14px;}
-.more-read{font-size:13px;font-weight:600;color:var(--navy);}
-.more-read:hover{text-decoration:underline;}
+/* NEWS LIST — remaining articles */
+.news-list{border-top:1px solid var(--border);padding-top:32px;margin-top:8px;display:flex;flex-direction:column;gap:0;}
+.nl-item{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--border);align-items:start;}
+.nl-item:last-child{border-bottom:none;}
+.nl-img{aspect-ratio:16/9;overflow:hidden;border-radius:6px;background:var(--gray);}
+.nl-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;}
+.nl-item:hover .nl-img img{transform:scale(1.03);}
+.nl-body{display:flex;flex-direction:column;gap:6px;}
+.nl-meta{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);}
+.nl-title{font-size:18px;font-weight:700;color:var(--navy);line-height:1.3;display:block;}
+.nl-item:hover .nl-title{text-decoration:underline;}
+.nl-excerpt{font-size:14px;color:var(--muted);line-height:1.55;}
+.nl-read{font-size:13px;font-weight:600;color:var(--navy);margin-top:4px;}
 
 /* FOOTER */
 .footer{background:var(--navy);color:rgba(255,255,255,.72);padding:56px 0 0;font-size:14px;}
@@ -174,20 +165,14 @@ button{font-family:inherit;cursor:pointer;}
   .container{padding:0 16px;}
   .nav-links{display:none;}
   .btn-apply{display:none;}
-  .btn-search{display:flex;}
   .nav-burger{display:flex;}
   .nav-inner{height:56px;}
-  .article-wrap{padding:28px 16px 48px;}
-  .article h1{font-size:24px;letter-spacing:-.2px;}
-  .article-lead{font-size:16px;margin-bottom:24px;}
-  .article p{font-size:15px;}
-  .article-footer{flex-direction:column;gap:10px;}
-  .article-gallery{grid-template-columns:1fr 1fr;}
-  .more-news{padding:32px 0;}
-  .more-head h2{font-size:20px;}
-  .more-grid{grid-template-columns:1fr;}
-  .more-card{border-right:none;border-bottom:1px solid var(--border);}
-  .more-card:last-child{border-bottom:none;}
+  .page-header{padding:24px 0 20px;}
+  .page-header h1{font-size:24px;}
+  .news-featured{padding:24px 0;}
+  .news-featured-grid{grid-template-columns:1fr;gap:16px;}
+  .nl-item{grid-template-columns:1fr;gap:12px;}
+  .nl-img{aspect-ratio:16/9;}
   .footer{padding:36px 0 0;}
   .footer-grid{grid-template-columns:1fr;gap:20px;padding-bottom:28px;}
   .footer-bottom{flex-direction:column;gap:4px;text-align:center;padding:12px 0;}
@@ -288,14 +273,12 @@ button{font-family:inherit;cursor:pointer;}
       <div class="mob-sub" id="mob-univ">
         <div class="mob-sub-group"><div class="mob-sub-lbl">Про університет</div><a href="#">Історія та сьогодення</a><a href="#">Місія та цінності</a><a href="#">Почесні професори</a></div>
         <div class="mob-sub-group"><div class="mob-sub-lbl">Керівництво</div><a href="#">Ректор</a><a href="#">Вчена рада</a><a href="#">Структура університету</a></div>
-        <div class="mob-sub-group"><div class="mob-sub-lbl">Контакти</div><a href="#">Контакти університету</a><a href="#">Вакансії</a></div>
       </div>
     </div>
     <div class="mob-item">
       <div class="mob-item-head" data-mob="vstup">Вступникам<span class="mob-chev"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></span></div>
       <div class="mob-sub" id="mob-vstup">
         <div class="mob-sub-group"><div class="mob-sub-lbl">Умови вступу</div><a href="programs.html" class="mob-feat">Освітні програми 2026</a><a href="#">Бакалаврат (1 курс)</a><a href="#">Магістратура</a></div>
-        <div class="mob-sub-group"><div class="mob-sub-lbl">Приймальна комісія</div><a href="#">Контакти та графік роботи</a><a href="#">Результати та рейтингові списки</a></div>
       </div>
     </div>
     <div class="mob-item"><div class="mob-item-head"><a href="#">Студентам</a></div></div>
@@ -313,28 +296,20 @@ button{font-family:inherit;cursor:pointer;}
   </div>
 </div>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
+<!-- PAGE HEADER -->
+<div class="page-header">
   <div class="container">
-    <a href="index.html">ТНУ</a><span>/</span>
-    <a href="news.html">Новини</a><span>/</span>
-    <span id="bc-cat" style="color:var(--text)"></span>
+    <h1>Новини</h1>
   </div>
 </div>
 
-<!-- ARTICLE ROOT -->
-<div id="article-root"></div>
-
-<!-- MORE NEWS -->
-<section class="more-news">
+<!-- FEATURED + LIST -->
+<div class="news-featured">
   <div class="container">
-    <div class="more-head">
-      <h2>Більше новин</h2>
-      <a href="news.html" class="more-link">Усі новини →</a>
-    </div>
-    <div class="more-grid" id="more-grid"></div>
+    <div class="news-featured-grid" id="featured-grid"></div>
+    <div class="news-list" id="news-list"></div>
   </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -363,20 +338,7 @@ const newsData = [
     date: '27 травня 2026',
     category: 'Партнерство',
     excerpt: 'В Навчально-науковому інституті філології та журналістики відбулася зустріч студентів з Марією Андрійчук, керівником відділу маркетингу та зв\'язків з громадськістю AIESEC у Києві.',
-    img: 'https://tnu.edu.ua/wp-content/uploads/2026/05/7da9a945-4b84-4c5.jpg',
-    imgs: [
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/7da9a945-4b84-4c5.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/9f205a79-d292-40d.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/14004604-0413-4e8.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/c2176dd1-3cc3-4c69-9a1a-64a.jpg'
-    ],
-    body: [
-      'В Навчально-науковому інституті філології та журналістики ТНУ відбулася зустріч студентів з Марією Андрійчук, керівником відділу маркетингу та зв\'язків з громадськістю AIESEC у Києві.',
-      'Учасники дізналися про одну з найбільших міжнародних молодіжних організацій, яка об\'єднує активну молодь у понад 100 країнах світу. Організація робить акцент на розвитку лідерських якостей, міжкультурній комунікації та набутті практичного досвіду через волонтерські, освітні та міжнародні програми.',
-      'Студенти отримали інформацію про можливості міжнародних стажувань, волонтерських проєктів, розвитку soft skills і практичного досвіду в міжнародному середовищі. Під час зустрічі були представлені реальні історії успіху учасників та поради щодо лідерства й громадянської активності.',
-      'Університет продовжує підтримувати ініціативи з розвитку студентів та міжнародного співробітництва.'
-    ],
-    tags: ['Партнерство', 'Міжнародне', 'Студенти']
+    img: 'https://tnu.edu.ua/wp-content/uploads/2026/05/7da9a945-4b84-4c5.jpg'
   },
   {
     id: 'firstaid',
@@ -384,22 +346,7 @@ const newsData = [
     date: '26 травня 2026',
     category: 'Студентське життя',
     excerpt: 'Волонтерський відділ Інституту філології та журналістики організував тренінг з надання першої допомоги для студентів першого курсу спеціальності «Англійська філологія».',
-    img: 'https://tnu.edu.ua/wp-content/uploads/2026/05/0ccff2c2-64de-418c-8281-41d.jpg',
-    imgs: [
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/0ccff2c2-64de-418c-8281-41d.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/462db42f-e2ea-4be9-9681-a94.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/bb70b5b1-1eb5-4ede-80e2-9d9.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/c1fbcbaa-4d4e-406c-8ac6-114.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/c4035826-dfb4-4fb8-bb62-1dd.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/d8ac55d5-054f-4254-bc27-136.jpg'
-    ],
-    body: [
-      'Волонтерський відділ Навчально-наукового інституту філології та журналістики ТНУ організував тренінг з надання домедичної екстреної допомоги для студентів першого курсу спеціальності «Англійська філологія».',
-      'Тренінг провели студентки третього курсу спеціальності «Арабська філологія» Кіра Кузьменко та Софія Беркут за участі старшого викладача Анни Шеремет.',
-      'Такі знання є не просто корисними, а життєво необхідними в умовах воєнного часу. Навички надання першої допомоги є важливими для кожного цивільного, особливо зважаючи на тривалі атаки на міста України.',
-      'Захід засвідчив відповідальність, небайдужість та ініціативність студентів — все те, що формує сильне й стійке суспільство.'
-    ],
-    tags: ['Студентське життя', 'Безпека', 'Волонтерство']
+    img: 'https://tnu.edu.ua/wp-content/uploads/2026/05/0ccff2c2-64de-418c-8281-41d.jpg'
   },
   {
     id: 'radiofrance',
@@ -407,69 +354,35 @@ const newsData = [
     date: '26 травня 2026',
     category: 'Наука',
     excerpt: 'Журналіст Radio France Ізабель Лаберрі відвідала ТНУ для підготовки аудіоматеріалу про сучасні виклики міжнародного гуманітарного права та роль автономних систем у збройних конфліктах.',
-    img: 'https://tnu.edu.ua/wp-content/uploads/2026/05/9e6c6e9f-b4bf-4385-bcac-8e763bdfdb51.jpg',
-    imgs: [
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/9e6c6e9f-b4bf-4385-bcac-8e763bdfdb51.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/76b08026-0b03-4112-acc8-83918383-1.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/085c4e5d-4088-4d92-9588-2863f30816f9.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/408ffe1c-4028-4529-aa56-8bf58b052510.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/0496fb2e-94dd-4d9b-a29b-974da50ae0f8.jpg',
-      'https://tnu.edu.ua/wp-content/uploads/2026/05/4302e303-70dc-4840-97e5-d40c37aa5bd4.jpg'
-    ],
-    body: [
-      'Журналіст Radio France Ізабель Лаберрі завітала до Таврійського національного університету для підготовки аудіоматеріалу про сучасні виклики міжнародного гуманітарного права.',
-      'У центрі обговорення — правові, етичні та безпекові аспекти застосування наземних роботизованих комплексів у збройних конфліктах: відповідність нових технологій нормам міжнародного права, відповідальність за дії автономних систем та роль України у розвитку сучасної практики міжнародного гуманітарного права.',
-      'У зустрічі взяли участь фахівці університету: професорки Наталія Добрянська, Вероніка Горєлова та Емма Асоян.',
-      'Захід підкреслює внесок України в міжнародний правовий дискурс в умовах активного конфлікту та важливість підготовки юристів для сучасних викликів безпеки.'
-    ],
-    tags: ['Наука', 'Право', 'Міжнародне']
+    img: 'https://tnu.edu.ua/wp-content/uploads/2026/05/9e6c6e9f-b4bf-4385-bcac-8e763bdfdb51.jpg'
   }
 ];
 
-(function(){
-  const id = new URLSearchParams(window.location.search).get('id') || newsData[0].id;
-  const n = newsData.find(x => x.id === id) || newsData[0];
-
-  document.getElementById('doc-title').textContent = n.title + ' — ТНУ';
-  document.getElementById('bc-cat').textContent = n.category;
-
-  const bodyHTML = n.body.map(p => `<p>${p}</p>`).join('');
-  const galImgs = n.imgs.slice(1).map(src =>
-    `<img src="${src}" alt="" loading="lazy" onerror="this.style.display='none'">`
-  ).join('');
-
-  document.getElementById('article-root').innerHTML = `
-    <div class="article-wrap">
-      <div class="article-meta">${n.category} <span>·</span> ${n.date}</div>
-      <div class="article">
-        <h1>${n.title}</h1>
-        <p class="article-lead">${n.excerpt}</p>
-        <img class="article-cover" src="${n.img}" alt="${n.title}" onerror="this.style.background='var(--gray)';this.style.minHeight='240px'">
-        ${bodyHTML}
-        ${n.imgs.length > 1 ? `<div class="article-gallery">${galImgs}</div>` : ''}
-      </div>
-      <div class="article-footer">
-        <div class="article-tags">${n.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-        <div class="article-share">
-          <span>Поділитись:</span>
-          <a href="#">Facebook</a>
-          <a href="#">Telegram</a>
-        </div>
-      </div>
+// First 2 → featured cards with photos
+document.getElementById('featured-grid').innerHTML = newsData.slice(0,2).map(n => `
+  <a href="article.html?id=${n.id}" class="nf-card">
+    <div class="nf-img"><img src="${n.img}" alt="${n.title}" loading="eager" onerror="this.parentElement.style.background='var(--gray)'"></div>
+    <div class="nf-body">
+      <div class="nf-meta">${n.category} · ${n.date}</div>
+      <span class="nf-title">${n.title}</span>
+      <p class="nf-excerpt">${n.excerpt}</p>
+      <span class="nf-read">Читати →</span>
     </div>
-  `;
+  </a>
+`).join('');
 
-  const others = newsData.filter(x => x.id !== n.id);
-  document.getElementById('more-grid').innerHTML = others.map(x => `
-    <div class="more-card">
-      <img class="more-card-img" src="${x.img}" alt="${x.title}" loading="lazy" onerror="this.style.display='none'">
-      <div class="more-meta">${x.category} · ${x.date}</div>
-      <a href="article.html?id=${x.id}" class="more-title">${x.title}</a>
-      <p class="more-excerpt">${x.excerpt}</p>
-      <a href="article.html?id=${x.id}" class="more-read">Читати →</a>
+// Remaining → list rows
+document.getElementById('news-list').innerHTML = newsData.slice(2).map(n => `
+  <a href="article.html?id=${n.id}" class="nl-item">
+    <div class="nl-img"><img src="${n.img}" alt="${n.title}" loading="lazy" onerror="this.parentElement.style.background='var(--gray)'"></div>
+    <div class="nl-body">
+      <div class="nl-meta">${n.category} · ${n.date}</div>
+      <span class="nl-title">${n.title}</span>
+      <p class="nl-excerpt">${n.excerpt}</p>
+      <span class="nl-read">Читати →</span>
     </div>
-  `).join('');
-})();
+  </a>
+`).join('');
 
 // NAV
 const navItems = document.querySelectorAll('.has-mega');
@@ -504,28 +417,23 @@ const searchBtn = document.querySelector('.btn-search');
 const searchPanel = document.getElementById('searchPanel');
 const searchInput = document.getElementById('searchPanelInput');
 const searchClose = document.getElementById('searchPanelClose');
-function toggleSearch(){const open=searchPanel.classList.toggle('open');searchBtn.classList.toggle('active',open);if(open)setTimeout(()=>searchInput.focus(),50);}
-function closeSearch(){searchPanel.classList.remove('open');searchBtn.classList.remove('active');}
-searchBtn.addEventListener('click', toggleSearch);
-searchClose.addEventListener('click', closeSearch);
-document.addEventListener('keydown', e => {if(e.key==='Escape')closeSearch();});
+searchBtn.addEventListener('click', ()=>{const o=searchPanel.classList.toggle('open');if(o)setTimeout(()=>searchInput.focus(),50);});
+searchClose.addEventListener('click', ()=>searchPanel.classList.remove('open'));
+document.addEventListener('keydown', e=>{if(e.key==='Escape')searchPanel.classList.remove('open');});
 
 // Mobile menu
 const burger = document.getElementById('navBurger');
 const mobMenu = document.getElementById('mobMenu');
 const mobOverlay = document.getElementById('mobOverlay');
 const mobClose = document.getElementById('mobClose');
-function openMob(){mobMenu.classList.add('open');mobOverlay.classList.add('open');burger.classList.add('open');document.body.style.overflow='hidden';}
-function closeMob(){mobMenu.classList.remove('open');mobOverlay.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';}
-burger.addEventListener('click', openMob);
-mobClose.addEventListener('click', closeMob);
-mobOverlay.addEventListener('click', closeMob);
+burger.addEventListener('click', ()=>{mobMenu.classList.add('open');mobOverlay.classList.add('open');burger.classList.add('open');document.body.style.overflow='hidden';});
+[mobClose, mobOverlay].forEach(el=>el.addEventListener('click', ()=>{mobMenu.classList.remove('open');mobOverlay.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';}));
 document.querySelectorAll('.mob-item-head[data-mob]').forEach(h => {
   h.addEventListener('click', () => {
     const sub = document.getElementById('mob-' + h.dataset.mob);
     const wasOpen = sub.classList.contains('open');
-    document.querySelectorAll('.mob-sub').forEach(s => s.classList.remove('open'));
-    document.querySelectorAll('.mob-item-head').forEach(x => x.classList.remove('open'));
+    document.querySelectorAll('.mob-sub').forEach(s=>s.classList.remove('open'));
+    document.querySelectorAll('.mob-item-head').forEach(x=>x.classList.remove('open'));
     if(!wasOpen){sub.classList.add('open');h.classList.add('open');}
   });
 });
