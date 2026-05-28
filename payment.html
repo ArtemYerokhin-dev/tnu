@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Реквізити та оплата — ТНУ</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1C2B4A;--gray:#F0F2F5;--white:#FFFFFF;--text:#1A1A1A;--muted:#6B7280;--border:#D8DCE4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;color:var(--text);background:#fff;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+.container{max-width:1200px;margin:0 auto;padding:0 24px;}
+
+/* UTILITY */
+.utility{background:var(--navy);height:30px;display:flex;align-items:center;font-size:11px;}
+.utility>.container{width:100%;}
+.utility-inner{display:flex;justify-content:space-between;align-items:center;width:100%;gap:32px;}
+.utility-name{color:rgba(255,255,255,.88);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+.utility-right{display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.utility-right a{color:rgba(255,255,255,.7);transition:color .15s;}
+.utility-right a:hover{color:#fff;}
+.utility-sep{width:1px;height:11px;background:rgba(255,255,255,.2);}
+.utility-lang{display:flex;gap:6px;color:rgba(255,255,255,.5);}
+.utility-lang b{color:#fff;}
+
+/* NAVBAR */
+.navbar{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.nav-inner{height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-box{width:36px;height:36px;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:6px;}
+.logo-label{display:flex;flex-direction:column;line-height:1.25;}
+.logo-label span:first-child{font-size:13px;font-weight:700;color:var(--navy);}
+.logo-label span:last-child{font-size:11px;color:var(--muted);}
+.nav-links{display:flex;list-style:none;height:64px;}
+.nav-item{height:100%;display:flex;align-items:center;position:relative;}
+.nav-item>a{padding:0 16px;height:100%;display:flex;align-items:center;font-size:15px;font-weight:500;color:var(--text);border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-item>a:hover{color:var(--navy);border-bottom-color:var(--navy);}
+.nav-item.active>a{color:var(--navy);border-bottom-color:var(--navy);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-search{width:36px;height:36px;background:transparent;border:none;color:var(--navy);display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.btn-apply{height:36px;padding:0 18px;background:var(--navy);color:#fff;font-size:13px;font-weight:600;border:none;transition:background .15s;border-radius:6px;}
+.btn-apply:hover{background:#111e33;}
+
+/* SEARCH */
+.search-panel{position:fixed;top:64px;left:0;right:0;z-index:99;background:#fff;border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1),box-shadow .32s;}
+.search-panel.open{max-height:80px;box-shadow:0 6px 20px rgba(0,0,0,.06);}
+.search-panel-inner{display:flex;align-items:center;height:80px;gap:14px;}
+.search-panel-input{flex:1;height:44px;border:none;border-bottom:2px solid var(--navy);font-family:inherit;font-size:17px;color:var(--text);background:transparent;outline:none;padding:0 6px;}
+.search-panel-input::placeholder{color:var(--muted);}
+.search-panel-close{background:transparent;border:none;color:var(--muted);font-size:26px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;}
+
+/* BURGER / MOBILE MENU */
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:transparent;border:none;cursor:pointer;padding:6px;margin-left:8px;flex-shrink:0;}
+.nav-burger span{display:block;width:20px;height:2px;background:var(--navy);border-radius:1px;transition:transform .2s,opacity .2s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;}
+.mob-overlay.open{display:block;}
+.mob-menu{position:fixed;top:0;right:-320px;width:min(300px,90vw);height:100%;background:#fff;z-index:400;box-shadow:-6px 0 32px rgba(0,0,0,.14);transition:right .28s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+.mob-menu.open{right:0;}
+.mob-head{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.mob-logo{display:flex;align-items:center;gap:8px;}
+.mob-logo-box{width:28px;height:28px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.mob-logo-label{font-size:11px;font-weight:700;color:var(--navy);line-height:1.3;}
+.mob-close{width:32px;height:32px;background:transparent;border:none;font-size:22px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.mob-nav{flex:1;}
+.mob-item{border-bottom:1px solid var(--border);}
+.mob-item-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;font-size:15px;font-weight:500;color:var(--text);}
+.mob-item-head a{color:inherit;}
+.mob-footer-block{padding:16px 20px;border-top:1px solid var(--border);flex-shrink:0;}
+.mob-apply-btn{display:block;width:100%;height:44px;background:var(--navy);color:#fff;font-family:inherit;font-size:14px;font-weight:600;border:none;cursor:pointer;border-radius:6px;}
+
+/* BREADCRUMB */
+.breadcrumb{height:40px;border-bottom:1px solid var(--border);display:flex;align-items:center;font-size:13px;color:var(--muted);}
+.breadcrumb>.container{display:flex;align-items:center;width:100%;}
+.breadcrumb a{color:var(--muted);}
+.breadcrumb a:hover{color:var(--navy);text-decoration:underline;}
+.breadcrumb span{margin:0 6px;}
+
+/* HERO */
+.page-hero{background:var(--navy);padding:52px 0 48px;}
+.hero-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,.6);background:rgba(255,255,255,.1);padding:5px 14px;border-radius:6px;margin-bottom:18px;}
+.page-hero h1{font-size:36px;font-weight:700;color:#fff;line-height:1.2;letter-spacing:-.4px;max-width:680px;margin-bottom:14px;}
+.hero-slogan{font-size:14px;color:rgba(255,255,255,.55);font-weight:500;}
+
+/* MAIN LAYOUT */
+.page-body{padding:56px 0 80px;}
+.page-layout{display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:start;}
+
+/* CONTENT */
+.page-content h2{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:14px;letter-spacing:-.2px;}
+.page-content p{font-size:15px;color:var(--text);line-height:1.75;margin-bottom:18px;}
+.section-block{margin-bottom:48px;}
+.section-block:last-child{margin-bottom:0;}
+
+/* NOTICE BLOCK */
+.notice-block{background:#FFF8E1;border:1px solid #FFD54F;border-radius:6px;padding:16px 20px;margin-bottom:28px;display:flex;gap:12px;align-items:flex-start;}
+.notice-icon{flex-shrink:0;margin-top:2px;}
+.notice-text{font-size:14px;color:var(--text);line-height:1.6;}
+.notice-text strong{color:var(--navy);}
+
+/* PAYMENT CARD */
+.payment-card{border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:16px;}
+.payment-card-head{background:var(--navy);padding:14px 20px;display:flex;align-items:center;gap:12px;}
+.payment-card-num{width:26px;height:26px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.payment-card-title{font-size:14px;font-weight:700;color:#fff;}
+.payment-card-body{padding:20px;}
+.req-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.req-row:last-child{border-bottom:none;padding-bottom:0;}
+.req-label{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);min-width:130px;flex-shrink:0;padding-top:2px;}
+.req-val{font-size:14px;font-weight:600;color:var(--navy);line-height:1.45;word-break:break-all;}
+.req-val.mono{font-family:'Courier New',monospace;font-size:13px;letter-spacing:.5px;}
+.purpose-note{margin-top:14px;padding:12px 16px;background:var(--gray);border-radius:6px;font-size:13px;color:var(--text);line-height:1.6;}
+.purpose-note strong{color:var(--navy);}
+
+/* ACCORDION */
+.accordion{border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+.acc-btn{display:flex;justify-content:space-between;align-items:center;width:100%;padding:16px 20px;font-size:15px;font-weight:600;color:var(--navy);background:#fff;border:none;text-align:left;transition:background .15s;}
+.acc-btn:hover{background:var(--gray);}
+.acc-btn.open{background:var(--gray);}
+.acc-chevron{width:18px;height:18px;flex-shrink:0;transition:transform .25s;color:var(--muted);}
+.acc-btn.open .acc-chevron{transform:rotate(180deg);}
+.acc-body{display:none;padding:0 20px 20px;}
+.acc-body.open{display:block;}
+
+/* DOC ROWS */
+.doc-link{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.45;transition:color .15s;}
+.doc-link:last-child{border-bottom:none;padding-bottom:0;}
+.doc-link:hover{color:var(--navy);}
+.doc-icon{width:28px;height:28px;background:var(--gray);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+
+/* SIDEBAR */
+.page-sidebar{position:sticky;top:80px;}
+.sidebar-card{border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:16px;background:#fff;}
+.sidebar-card-head{padding:12px 18px;border-bottom:1px solid var(--border);}
+.sidebar-card-head h4{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
+.sidebar-card-body{padding:14px 18px;}
+.contact-row{padding:6px 0;font-size:13px;color:var(--text);line-height:1.5;}
+.contact-row:first-child{padding-top:0;}
+.contact-row:last-child{padding-bottom:0;}
+.contact-row a{color:var(--text);}
+.contact-row a:hover{color:var(--navy);text-decoration:underline;}
+.nav-list{list-style:none;display:flex;flex-direction:column;}
+.nav-list li a{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;font-size:13px;color:var(--text);border-bottom:1px solid var(--border);transition:color .15s,background .15s;}
+.nav-list li:last-child a{border-bottom:none;}
+.nav-list li a:hover{color:var(--navy);background:var(--gray);}
+.nav-list li.active a{color:var(--navy);font-weight:600;}
+
+/* FOOTER */
+.footer{background:var(--navy);color:rgba(255,255,255,.72);padding:56px 0 0;font-size:14px;}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-logo-box{width:36px;height:36px;background:rgba(255,255,255,.12);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.footer-logo-top{font-size:13px;font-weight:700;color:#fff;}
+.footer-logo-bot{font-size:11px;color:rgba(255,255,255,.45);}
+.footer-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.6);max-width:260px;}
+.footer h4{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:16px;}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer ul li a{font-size:14px;color:rgba(255,255,255,.65);transition:color .15s;}
+.footer ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.38);}
+
+/* MOBILE */
+@media(max-width:768px){
+  .container{padding:0 16px;}
+  .nav-links,.btn-apply{display:none;}
+  .nav-burger{display:flex;}
+  .nav-inner{height:56px;}
+  .page-hero{padding:36px 0 32px;}
+  .page-hero h1{font-size:24px;}
+  .page-body{padding:32px 0 48px;}
+  .page-layout{grid-template-columns:1fr;gap:32px;}
+  .page-sidebar{position:static;}
+  .req-row{flex-direction:column;gap:4px;}
+  .req-label{min-width:unset;}
+  .footer{padding:36px 0 0;}
+  .footer-grid{grid-template-columns:1fr;gap:20px;padding-bottom:28px;}
+  .footer-bottom{flex-direction:column;gap:4px;text-align:center;padding:12px 0;}
+}
+@media(min-width:1440px){.container{max-width:1360px;}}
+</style>
+</head>
+<body>
+
+<!-- UTILITY BAR -->
+<div class="utility"><div class="container"><div class="utility-inner">
+  <span class="utility-name">Таврійський національний університет імені В. І. Вернадського</span>
+  <div class="utility-right">
+    <a href="#">Бібліотека</a><a href="#">Розклад</a>
+    <div class="utility-sep"></div>
+    <div class="utility-lang"><b>UA</b> <span>|</span> <a href="#" style="color:rgba(255,255,255,.5)">EN</a></div>
+  </div>
+</div></div></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-box">ТНУ</div>
+      <div class="logo-label"><span>Таврійський національний</span><span>університет</span></div>
+    </a>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#">Університет</a></li>
+      <li class="nav-item"><a href="#">Вступникам</a></li>
+      <li class="nav-item active"><a href="#">Студентам</a></li>
+      <li class="nav-item"><a href="#">Наука</a></li>
+      <li class="nav-item"><a href="news.html">Новини</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="btn-search" id="searchBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button class="btn-apply">Подати документи</button>
+      <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- SEARCH PANEL -->
+<div class="search-panel" id="searchPanel"><div class="container"><div class="search-panel-inner">
+  <input class="search-panel-input" id="searchPanelInput" type="text" placeholder="Пошук по сайту...">
+  <button class="search-panel-close" id="searchPanelClose">×</button>
+</div></div></div>
+
+<!-- MOBILE MENU -->
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-menu" id="mobMenu">
+  <div class="mob-head">
+    <div class="mob-logo"><div class="mob-logo-box">ТНУ</div><div class="mob-logo-label">Таврійський<br>національний</div></div>
+    <button class="mob-close" id="mobClose">×</button>
+  </div>
+  <div class="mob-nav">
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Університет</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Вступникам</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Студентам</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Наука</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="news.html">Новини</a></div></div>
+  </div>
+  <div class="mob-footer-block"><button class="mob-apply-btn">Подати документи</button></div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb"><div class="container">
+  <a href="index.html">ТНУ</a><span>/</span>
+  <a href="#">Студентам</a><span>/</span>
+  <span style="color:var(--text)">Реквізити та оплата</span>
+</div></div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="hero-badge">Студентам</div>
+    <h1>Реквізити та оплата</h1>
+    <p class="hero-slogan">Банківські реквізити університету для всіх видів оплат</p>
+  </div>
+</div>
+
+<!-- MAIN BODY -->
+<div class="page-body">
+  <div class="container">
+    <div class="page-layout">
+
+      <!-- CONTENT -->
+      <div class="page-content">
+
+        <!-- NOTICE -->
+        <div class="section-block">
+          <div class="notice-block">
+            <div class="notice-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="notice-text">
+              <strong>Увага!</strong> З 2025–2026 навчального року вартість навчання для студентів контрактної форми (2–4 курс бакалаврату, 2 курс магістратури) проіндексована відповідно до рівня інфляції за 2024 рік — <strong>12%</strong>. Іноземних студентів індексація не стосується.
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYMENT CARDS -->
+        <div class="section-block">
+          <h2>Банківські реквізити</h2>
+          <p style="margin-bottom:24px;">Отримувач платежу у всіх випадках: <strong>Таврійський національний університет імені В. І. Вернадського</strong>, ЄДРПОУ: <strong>02070967</strong>, Банк: <strong>Державна казначейська служба України м. Київ</strong>, МФО: <strong>820172</strong>.</p>
+
+          <!-- Навчання -->
+          <div class="payment-card">
+            <div class="payment-card-head">
+              <div class="payment-card-num">1</div>
+              <div class="payment-card-title">Оплата за навчання</div>
+            </div>
+            <div class="payment-card-body">
+              <div class="req-row">
+                <div class="req-label">Рахунок IBAN</div>
+                <div class="req-val mono">UA70 8201 7203 1324 1001 2010 0022 4</div>
+              </div>
+              <div class="req-row">
+                <div class="req-label">МФО</div>
+                <div class="req-val">820172</div>
+              </div>
+              <div class="req-row">
+                <div class="req-label">ЄДРПОУ</div>
+                <div class="req-val">02070967</div>
+              </div>
+              <div class="purpose-note">
+                <strong>Призначення платежу:</strong> за навчання – П.І.Б студента, інститут, курс, семестр
+              </div>
+            </div>
+          </div>
+
+          <!-- Гуртожиток -->
+          <div class="payment-card">
+            <div class="payment-card-head">
+              <div class="payment-card-num">2</div>
+              <div class="payment-card-title">Оплата за проживання в гуртожитку</div>
+            </div>
+            <div class="payment-card-body">
+              <div class="req-row">
+                <div class="req-label">Рахунок IBAN</div>
+                <div class="req-val mono">UA71 8201 7203 1321 1001 2020 0022 4</div>
+              </div>
+              <div class="req-row">
+                <div class="req-label">МФО</div>
+                <div class="req-val">820172</div>
+              </div>
+              <div class="req-row">
+                <div class="req-label">ЄДРПОУ</div>
+                <div class="req-val">02070967</div>
+              </div>
+              <div class="purpose-note">
+                <strong>Призначення платежу:</strong> за проживання в гуртожитку – П.І.Б студента, інститут, курс, період проживання
+              </div>
+            </div>
+          </div>
+
+          <!-- Дублікат студквитка -->
+          <div class="payment-card">
+            <div class="payment-card-head">
+              <div class="payment-card-num">3</div>
+              <div class="payment-card-title">Виготовлення дубліката студентського квитка</div>
+            </div>
+            <div class="payment-card-body">
+              <div class="req-row">
+                <div class="req-label">Рахунок IBAN</div>
+                <div class="req-val mono">UA70 8201 7203 1324 1001 2010 0022 4</div>
+              </div>
+              <div class="req-row">
+                <div class="req-label">МФО</div>
+                <div class="req-val">820172</div>
+              </div>
+              <div class="req-row">
+                <div class="req-label">ЄДРПОУ</div>
+                <div class="req-val">02070967</div>
+              </div>
+              <div class="purpose-note">
+                <strong>Призначення платежу:</strong> за виготовлення студентського квитка – П.І.Б студента, інститут, спеціальність, форма навчання, курс
+              </div>
+            </div>
+          </div>
+
+          <!-- Дублікат диплому -->
+          <div class="payment-card">
+            <div class="payment-card-head">
+              <div class="payment-card-num">4</div>
+              <div class="payment-card-title">Виготовлення дубліката диплому та додатка</div>
+            </div>
+            <div class="payment-card-body">
+              <div class="req-row">
+                <div class="req-label">Рахунок IBAN</div>
+                <div class="req-val mono">UA70 8201 7203 1324 1001 2010 0022 4</div>
+              </div>
+              <div class="req-row">
+                <div class="req-label">МФО</div>
+                <div class="req-val">820172</div>
+              </div>
+              <div class="req-row">
+                <div class="req-label">ЄДРПОУ</div>
+                <div class="req-val">02070967</div>
+              </div>
+              <div class="purpose-note">
+                <strong>Призначення платежу:</strong> за виготовлення диплому бакалавра (магістра) та додатка до нього – П.І.Б студента, інститут, спеціальність, форма навчання
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INDEXATION ORDERS -->
+        <div class="section-block">
+          <h2>Накази про індексацію вартості навчання</h2>
+
+          <div class="accordion">
+            <button class="acc-btn open" onclick="toggleAcc(this)">
+              2025 рік
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-body open">
+              <a class="doc-link" href="https://drive.google.com/file/d/11QqoMqmND8oPzKjV5GvJgqzy2owmVfN2/view?usp=drive_link" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ № 90-ОД від 28.07.2025 р. — індексація вартості навчання (студенти)
+              </a>
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2025/09/Наказ-№-82-ОД-від-08.07.2025-р.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ № 82-ОД від 08.07.2025 р. — індексація вартості навчання (аспіранти)
+              </a>
+            </div>
+          </div>
+
+          <div class="accordion">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              2024 рік
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-body">
+              <a class="doc-link" href="https://drive.google.com/file/d/168kgwuwSchdcpFSjiWGlgl8MU2rR3b2_/view?usp=sharing" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ № 113-ОД від 23.07.2024 р. — індексація вартості навчання (студенти)
+              </a>
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2024/07/Наказ-на-індексацію-іноземних-студентів-2024-рік.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ — індексація вартості навчання (іноземні студенти, 2024)
+              </a>
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2024/07/Наказ-на-індексацію-аспірантури-2024-рік.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ — індексація вартості навчання (аспіранти, 2024)
+              </a>
+            </div>
+          </div>
+
+          <div class="accordion">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              2023 рік
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-body">
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2023/08/Наказ-на-вартість-навчання-підвищення-на-інфляцію-з-01.09.2023-студенти_.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ від 01.09.2023 — підвищення вартості навчання на інфляцію (студенти)
+              </a>
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2023/08/Наказ-на-вартість-навчання-підвищення-на-інфляцію-з-01.09.2023-аспіранти_.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ від 01.09.2023 — підвищення вартості навчання на інфляцію (аспіранти)
+              </a>
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2023/08/Наказ-110-ОД_20-ЛИПНЯ-2023.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ № 110-ОД від 20 липня 2023 р.
+              </a>
+            </div>
+          </div>
+
+          <div class="accordion">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              2022 рік
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-body">
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2022/08/Про-зміну-вартості-за-навчання-в-2022-році-ТНУ-імені-В.-І.-Вернадського-студенти.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Про зміну вартості за навчання в 2022 році (студенти)
+              </a>
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2022/08/Про-зміну-вартості-за-навчання-в-2022-році-ТНУ-імені-В.-І.-Вернадського-аспіранти.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Про зміну вартості за навчання в 2022 році (аспіранти)
+              </a>
+            </div>
+          </div>
+
+          <div class="accordion">
+            <button class="acc-btn" onclick="toggleAcc(this)">
+              2021 та раніше
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="acc-body">
+              <a class="doc-link" href="https://tnu.edu.ua/wp-content/uploads/2021/12/Інфляція.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Індексація вартості навчання (2021)
+              </a>
+              <a class="doc-link" href="https://tnu.edu.ua/sites/default/files/normativbasa/nakaz-no146-od-vid-28082019-pro-vvedenna-v-diu-risen-vcenoi-radi-universitetu.pdf" target="_blank">
+                <div class="doc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                Наказ № 146-ОД від 28.08.2019 р. — про введення в дію рішень вченої ради університету
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-content -->
+
+      <!-- SIDEBAR -->
+      <aside class="page-sidebar">
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-head"><h4>На цій сторінці</h4></div>
+          <ul class="nav-list">
+            <li class="active"><a href="#" onclick="return false">Реквізити для оплати</a></li>
+            <li><a href="#">Оплата навчання</a></li>
+            <li><a href="#">Оплата гуртожитку</a></li>
+            <li><a href="#">Накази про індексацію</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-head"><h4>Загальні реквізити</h4></div>
+          <div class="sidebar-card-body">
+            <div class="contact-row"><strong>Отримувач</strong></div>
+            <div class="contact-row">ТНУ ім. В. І. Вернадського</div>
+            <div class="contact-row" style="margin-top:8px;"><strong>ЄДРПОУ</strong></div>
+            <div class="contact-row">02070967</div>
+            <div class="contact-row" style="margin-top:8px;"><strong>Банк</strong></div>
+            <div class="contact-row">Державна казначейська служба України м. Київ</div>
+            <div class="contact-row" style="margin-top:8px;"><strong>МФО</strong></div>
+            <div class="contact-row">820172</div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-head"><h4>Контакти бухгалтерії</h4></div>
+          <div class="sidebar-card-body">
+            <div class="contact-row">вул. Джона Маккейна, 33, Київ</div>
+            <div class="contact-row"><a href="tel:+380445290516">+38 (044) 529-05-16</a></div>
+            <div class="contact-row"><a href="mailto:pk@tnu.edu.ua">pk@tnu.edu.ua</a></div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div><!-- /page-layout -->
+  </div><!-- /container -->
+</div><!-- /page-body -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-box">ТНУ</div>
+          <div>
+            <div class="footer-logo-top">Таврійський національний університет</div>
+            <div class="footer-logo-bot">імені В. І. Вернадського</div>
+          </div>
+        </div>
+        <p class="footer-desc">Університет, заснований у Сімферополі, продовжує роботу в Києві. Готуємо фахівців для майбутнього України.</p>
+      </div>
+      <div>
+        <h4>Університет</h4>
+        <ul>
+          <li><a href="#">Про університет</a></li>
+          <li><a href="#">Структура</a></li>
+          <li><a href="#">Керівництво</a></li>
+          <li><a href="#">Документи</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Навчання</h4>
+        <ul>
+          <li><a href="programs.html">Освітні програми</a></li>
+          <li><a href="#">Розклад</a></li>
+          <li><a href="#">Бібліотека</a></li>
+          <li><a href="#">Дистанційне навчання</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Контакти</h4>
+        <ul>
+          <li><a href="#">вул. Джона Маккейна, 33, Київ</a></li>
+          <li><a href="tel:+380445290516">+38 (044) 529-05-16</a></li>
+          <li><a href="mailto:pk@tnu.edu.ua">pk@tnu.edu.ua</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 ТНУ ім. В. І. Вернадського</span>
+      <span>Всі права захищені</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ACCORDION
+function toggleAcc(btn){
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+// SEARCH
+const searchBtn = document.getElementById('searchBtn');
+const searchPanel = document.getElementById('searchPanel');
+const searchPanelClose = document.getElementById('searchPanelClose');
+const searchPanelInput = document.getElementById('searchPanelInput');
+searchBtn.addEventListener('click', () => {
+  searchPanel.classList.add('open');
+  setTimeout(() => searchPanelInput.focus(), 120);
+});
+searchPanelClose.addEventListener('click', () => searchPanel.classList.remove('open'));
+document.addEventListener('keydown', e => { if(e.key === 'Escape') searchPanel.classList.remove('open'); });
+
+// MOBILE MENU
+const navBurger = document.getElementById('navBurger');
+const mobMenu = document.getElementById('mobMenu');
+const mobOverlay = document.getElementById('mobOverlay');
+const mobClose = document.getElementById('mobClose');
+function openMob(){ navBurger.classList.add('open'); mobMenu.classList.add('open'); mobOverlay.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMob(){ navBurger.classList.remove('open'); mobMenu.classList.remove('open'); mobOverlay.classList.remove('open'); document.body.style.overflow=''; }
+navBurger.addEventListener('click', openMob);
+mobClose.addEventListener('click', closeMob);
+mobOverlay.addEventListener('click', closeMob);
+
+// SEARCH PANEL TOP
+function updateSearchTop(){
+  const nb = document.getElementById('navbar');
+  if(nb) searchPanel.style.top = nb.getBoundingClientRect().bottom + 'px';
+}
+window.addEventListener('scroll', updateSearchTop);
+updateSearchTop();
+</script>
+</body>
+</html>
