@@ -57,7 +57,7 @@ button{font-family:inherit;cursor:pointer;}
 .mega-cta-box .cta-lbl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;}
 .mega-cta-box .cta-title{font-size:18px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:14px;}
 .mega-cta-box .cta-btn{display:inline-flex;align-items:center;height:36px;padding:0 16px;border:1px solid rgba(255,255,255,.35);color:#fff;font-size:13px;font-weight:600;background:transparent;border-radius:6px;}
-.search-panel{background:#fff;border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1),box-shadow .32s;}
+.search-panel{position:fixed;top:64px;left:0;right:0;z-index:99;background:#fff;border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1),box-shadow .32s;}
 .search-panel.open{max-height:80px;box-shadow:0 6px 20px rgba(0,0,0,.06);}
 .search-panel-inner{display:flex;align-items:center;height:80px;gap:14px;}
 .search-panel-input{flex:1;height:44px;border:none;border-bottom:2px solid var(--navy);font-family:inherit;font-size:17px;color:var(--text);background:transparent;outline:none;padding:0 6px;}
@@ -361,7 +361,7 @@ navItems.forEach(item=>{
 });
 document.querySelectorAll('.mega-wrap').forEach(m=>{m.addEventListener('mouseenter',()=>clearTimeout(closeTimer));m.addEventListener('mouseleave',()=>{closeTimer=setTimeout(()=>{document.querySelectorAll('.mega-wrap').forEach(x=>x.classList.remove('open'));navItems.forEach(i=>i.classList.remove('open'));},150);});});
 const searchBtn=document.getElementById('searchBtn'),searchPanel=document.getElementById('searchPanel'),searchInput=document.getElementById('searchPanelInput'),searchClose=document.getElementById('searchPanelClose');
-searchBtn.addEventListener('click',()=>{const o=searchPanel.classList.toggle('open');if(o)setTimeout(()=>searchInput.focus(),50);});
+searchBtn.addEventListener('click',()=>{const o=searchPanel.classList.toggle('open');if(o){searchPanel.style.top=document.getElementById('navbar').getBoundingClientRect().bottom+'px';setTimeout(()=>searchInput.focus(),50);}});
 searchClose.addEventListener('click',()=>searchPanel.classList.remove('open'));
 const burger=document.getElementById('navBurger'),mobMenu=document.getElementById('mobMenu'),mobOverlay=document.getElementById('mobOverlay'),mobClose=document.getElementById('mobClose');
 burger.addEventListener('click',()=>{mobMenu.classList.add('open');mobOverlay.classList.add('open');burger.classList.add('open');document.body.style.overflow='hidden';});

@@ -331,7 +331,7 @@ button{font-family:inherit;cursor:pointer;}
 }
 
 /* SEARCH PANEL */
-.search-panel{background:#fff;border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1),box-shadow .32s;}
+.search-panel{position:fixed;top:64px;left:0;right:0;z-index:99;background:#fff;border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1),box-shadow .32s;}
 .search-panel.open{max-height:80px;box-shadow:0 6px 20px rgba(0,0,0,.06);}
 .search-panel-inner{display:flex;align-items:center;height:80px;gap:14px;}
 .search-panel-input{flex:1;height:44px;border:none;border-bottom:2px solid var(--navy);font-family:inherit;font-size:17px;color:var(--text);background:transparent;outline:none;padding:0 6px;transition:border-color .2s;}
@@ -862,7 +862,7 @@ const searchClose = document.getElementById('searchPanelClose');
 function toggleSearch() {
   const open = searchPanel.classList.toggle('open');
   searchBtn.classList.toggle('active', open);
-  if (open) setTimeout(() => searchInput.focus(), 50);
+  if (open) { searchPanel.style.top = document.getElementById('navbar').getBoundingClientRect().bottom + 'px'; setTimeout(() => searchInput.focus(), 50); }
 }
 function closeSearch() { searchPanel.classList.remove('open'); searchBtn.classList.remove('active'); }
 searchBtn.addEventListener('click', toggleSearch);
