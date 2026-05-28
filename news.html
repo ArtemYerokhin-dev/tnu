@@ -76,6 +76,13 @@ button{font-family:inherit;cursor:pointer;}
 .search-panel-close{background:transparent;border:none;color:var(--muted);font-size:26px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;transition:color .15s;}
 .search-panel-close:hover{color:var(--navy);}
 
+/* BREADCRUMB */
+.breadcrumb{height:40px;border-bottom:1px solid var(--border);display:flex;align-items:center;font-size:13px;color:var(--muted);}
+.breadcrumb>.container{display:flex;align-items:center;width:100%;}
+.breadcrumb a{color:var(--muted);}
+.breadcrumb a:hover{color:var(--navy);text-decoration:underline;}
+.breadcrumb span{margin:0 6px;}
+
 /* PAGE HEADER */
 .page-header{padding:40px 0 32px;border-bottom:1px solid var(--border);}
 .page-header h1{font-size:32px;font-weight:700;color:var(--navy);letter-spacing:-.3px;}
@@ -293,6 +300,14 @@ button{font-family:inherit;cursor:pointer;}
   </div>
   <div class="mob-footer-block">
     <button class="mob-apply-btn">Подати документи</button>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <a href="index.html">ТНУ</a><span>/</span>
+    <span style="color:var(--text)">Новини</span>
   </div>
 </div>
 
