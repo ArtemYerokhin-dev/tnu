@@ -388,10 +388,10 @@ button{font-family:inherit;cursor:pointer;}
   const bodyHTML = n.body.map(p => `<p>${p}</p>`).join('');
   const galleryBlock = n.imgs.length > 1 ? `
     <div class="gallery-footer">
-      <button class="gallery-all-btn" onclick="openLightbox(0)">
+      <a href="gallery.html?id=${n.id}" class="gallery-all-btn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m3 9 18 0M9 21V9"/></svg>
         Усі фото (${n.imgs.length})
-      </button>
+      </a>
     </div>` : '';
 
   document.getElementById('article-root').innerHTML = `
