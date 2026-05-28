@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Оголошення — ТНУ</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1C2B4A;--gray:#F0F2F5;--white:#FFFFFF;--text:#1A1A1A;--muted:#6B7280;--border:#D8DCE4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;color:var(--text);background:#fff;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+.container{max-width:1200px;margin:0 auto;padding:0 24px;}
+.utility{background:var(--navy);height:30px;display:flex;align-items:center;font-size:11px;}
+.utility>.container{width:100%;}
+.utility-inner{display:flex;justify-content:space-between;align-items:center;width:100%;gap:32px;}
+.utility-name{color:rgba(255,255,255,.88);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+.utility-right{display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.utility-right a{color:rgba(255,255,255,.7);transition:color .15s;}
+.utility-right a:hover{color:#fff;}
+.utility-sep{width:1px;height:11px;background:rgba(255,255,255,.2);}
+.utility-lang{display:flex;gap:6px;color:rgba(255,255,255,.5);}
+.utility-lang b{color:#fff;}
+.navbar{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.nav-inner{height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-box{width:36px;height:36px;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:6px;}
+.logo-label{display:flex;flex-direction:column;line-height:1.25;}
+.logo-label span:first-child{font-size:13px;font-weight:700;color:var(--navy);}
+.logo-label span:last-child{font-size:11px;color:var(--muted);}
+.nav-links{display:flex;list-style:none;height:64px;}
+.nav-item{height:100%;display:flex;align-items:center;position:relative;}
+.nav-item>a{padding:0 16px;height:100%;display:flex;align-items:center;font-size:15px;font-weight:500;color:var(--text);border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-item>a:hover{color:var(--navy);border-bottom-color:var(--navy);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-search{width:36px;height:36px;background:transparent;border:none;color:var(--navy);display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.btn-apply{height:36px;padding:0 18px;background:var(--navy);color:#fff;font-size:13px;font-weight:600;border:none;transition:background .15s;border-radius:6px;}
+.btn-apply:hover{background:#111e33;}
+.search-panel{position:fixed;top:64px;left:0;right:0;z-index:99;background:#fff;border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1),box-shadow .32s;}
+.search-panel.open{max-height:80px;box-shadow:0 6px 20px rgba(0,0,0,.06);}
+.search-panel-inner{display:flex;align-items:center;height:80px;gap:14px;}
+.search-panel-input{flex:1;height:44px;border:none;border-bottom:2px solid var(--navy);font-family:inherit;font-size:17px;color:var(--text);background:transparent;outline:none;padding:0 6px;}
+.search-panel-input::placeholder{color:var(--muted);}
+.search-panel-close{background:transparent;border:none;color:var(--muted);font-size:26px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:transparent;border:none;cursor:pointer;padding:6px;margin-left:8px;flex-shrink:0;}
+.nav-burger span{display:block;width:20px;height:2px;background:var(--navy);border-radius:1px;transition:transform .2s,opacity .2s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;}
+.mob-overlay.open{display:block;}
+.mob-menu{position:fixed;top:0;right:-320px;width:min(300px,90vw);height:100%;background:#fff;z-index:400;box-shadow:-6px 0 32px rgba(0,0,0,.14);transition:right .28s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+.mob-menu.open{right:0;}
+.mob-head{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.mob-logo{display:flex;align-items:center;gap:8px;}
+.mob-logo-box{width:28px;height:28px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.mob-logo-label{font-size:11px;font-weight:700;color:var(--navy);line-height:1.3;}
+.mob-close{width:32px;height:32px;background:transparent;border:none;font-size:22px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.mob-nav{flex:1;}
+.mob-item{border-bottom:1px solid var(--border);}
+.mob-item-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;font-size:15px;font-weight:500;color:var(--text);cursor:pointer;user-select:none;}
+.mob-item-head a{color:inherit;font-size:inherit;font-weight:inherit;}
+.mob-sub{display:none;background:var(--gray);}
+.mob-sub.open{display:block;}
+.mob-sub a{display:block;padding:8px 20px;font-size:14px;color:var(--text);}
+.mob-sub a:hover{color:var(--navy);}
+.mob-footer-block{padding:16px 20px;border-top:1px solid var(--border);flex-shrink:0;}
+.mob-apply-btn{display:block;width:100%;height:44px;background:var(--navy);color:#fff;font-family:inherit;font-size:14px;font-weight:600;border:none;cursor:pointer;border-radius:6px;}
+/* BREADCRUMB */
+.breadcrumb{height:40px;border-bottom:1px solid var(--border);display:flex;align-items:center;font-size:13px;color:var(--muted);}
+.breadcrumb>.container{display:flex;align-items:center;width:100%;}
+.breadcrumb a{color:var(--muted);}
+.breadcrumb a:hover{color:var(--navy);text-decoration:underline;}
+.breadcrumb span{margin:0 6px;}
+/* PAGE HEADER */
+.page-header{padding:40px 0 28px;border-bottom:1px solid var(--border);}
+.page-header h1{font-size:32px;font-weight:700;color:var(--navy);letter-spacing:-.3px;}
+/* ANNOUNCEMENT LIST */
+.ann-section{padding:48px 0 72px;}
+.ann-list{max-width:720px;}
+.ann-item-row{padding:24px 0;border-bottom:1px solid var(--border);}
+.ann-item-row:last-child{border-bottom:none;}
+.ann-item-meta{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.ann-item-date{font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);}
+.ann-item-cat{font-size:11px;font-weight:600;background:var(--gray);color:var(--navy);padding:2px 10px;border-radius:6px;}
+.ann-item-title{font-size:18px;font-weight:600;color:var(--navy);line-height:1.35;display:block;margin-bottom:8px;}
+.ann-item-title:hover{text-decoration:underline;}
+.ann-item-excerpt{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:10px;}
+.ann-read{font-size:13px;font-weight:600;color:var(--navy);}
+.ann-read:hover{text-decoration:underline;}
+/* FOOTER */
+.footer{background:var(--navy);color:rgba(255,255,255,.72);padding:56px 0 0;font-size:14px;}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-logo-box{width:36px;height:36px;background:rgba(255,255,255,.12);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.footer-logo-top{font-size:13px;font-weight:700;color:#fff;}
+.footer-logo-bot{font-size:11px;color:rgba(255,255,255,.45);}
+.footer-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.6);max-width:260px;}
+.footer h4{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:16px;}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer ul li a{font-size:14px;color:rgba(255,255,255,.65);transition:color .15s;}
+.footer ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.38);}
+@media(max-width:768px){
+  .container{padding:0 16px;}
+  .nav-links,.btn-apply{display:none;}
+  .nav-burger{display:flex;}
+  .nav-inner{height:56px;}
+  .page-header h1{font-size:24px;}
+  .ann-section{padding:28px 0 48px;}
+  .footer{padding:36px 0 0;}
+  .footer-grid{grid-template-columns:1fr;gap:20px;padding-bottom:28px;}
+  .footer-bottom{flex-direction:column;gap:4px;text-align:center;padding:12px 0;}
+}
+@media(min-width:1440px){.container{max-width:1360px;}}
+</style>
+</head>
+<body>
+
+<div class="utility"><div class="container"><div class="utility-inner">
+  <span class="utility-name">Таврійський національний університет імені В. І. Вернадського</span>
+  <div class="utility-right">
+    <a href="#">Бібліотека</a><a href="#">Розклад</a>
+    <div class="utility-sep"></div>
+    <div class="utility-lang"><b>UA</b> <span>|</span> <a href="#" style="color:rgba(255,255,255,.5)">EN</a></div>
+  </div>
+</div></div></div>
+
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><div class="logo-box">ТНУ</div></a>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#">Університет</a></li>
+      <li class="nav-item"><a href="#">Вступникам</a></li>
+      <li class="nav-item"><a href="#">Студентам</a></li>
+      <li class="nav-item"><a href="#">Наука</a></li>
+      <li class="nav-item"><a href="news.html">Новини</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="btn-search" id="searchBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button class="btn-apply">Подати документи</button>
+      <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="search-panel" id="searchPanel"><div class="container"><div class="search-panel-inner">
+  <input class="search-panel-input" id="searchPanelInput" type="text" placeholder="Пошук по сайту...">
+  <button class="search-panel-close" id="searchPanelClose">×</button>
+</div></div></div>
+
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-menu" id="mobMenu">
+  <div class="mob-head"><div class="mob-logo"><div class="mob-logo-box">ТНУ</div><div class="mob-logo-label">Таврійський<br>національний</div></div><button class="mob-close" id="mobClose">×</button></div>
+  <div class="mob-nav">
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Університет</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Вступникам</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Студентам</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Наука</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="news.html">Новини</a></div></div>
+  </div>
+  <div class="mob-footer-block"><button class="mob-apply-btn">Подати документи</button></div>
+</div>
+
+<div class="breadcrumb"><div class="container">
+  <a href="index.html">ТНУ</a><span>/</span>
+  <span style="color:var(--text)">Оголошення</span>
+</div></div>
+
+<div class="page-header"><div class="container">
+  <h1>Оголошення</h1>
+</div></div>
+
+<div class="ann-section"><div class="container">
+  <div class="ann-list" id="ann-list"></div>
+</div></div>
+
+<footer class="footer"><div class="container">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><div class="footer-logo-box">ТНУ</div><div><div class="footer-logo-top">Таврійський національний</div><div class="footer-logo-bot">університет</div></div></div>
+      <p class="footer-desc">Сучасний класичний університет з більш ніж 100-річною історією.</p>
+    </div>
+    <div><h4>Університет</h4><ul><li><a href="#">Про ТНУ</a></li><li><a href="#">Структура</a></li><li><a href="#">Керівництво</a></li></ul></div>
+    <div><h4>Освіта</h4><ul><li><a href="programs.html">Програми</a></li><li><a href="#">Вступ 2026</a></li><li><a href="#">Розклад</a></li></ul></div>
+    <div><h4>Контакти</h4><ul><li><a href="tel:+380445290516">+38 (044) 529 05 16</a></li><li><a href="mailto:office@tnu.edu.ua">office@tnu.edu.ua</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Таврійський національний університет</span><span>Усі права захищені</span></div>
+</div></footer>
+
+<script src="announcements-data.js"></script>
+<script>
+(function(){
+  const list = document.getElementById('ann-list');
+  list.innerHTML = announcementsData.map(a => `
+    <div class="ann-item-row">
+      <div class="ann-item-meta">
+        <span class="ann-item-date">${a.date}</span>
+        <span class="ann-item-cat">${a.category}</span>
+      </div>
+      <a href="announcement.html?id=${a.id}" class="ann-item-title">${a.title}</a>
+      <p class="ann-item-excerpt">${a.excerpt}</p>
+      <a href="announcement.html?id=${a.id}" class="ann-read">Читати →</a>
+    </div>`).join('');
+})();
+
+const searchBtn = document.getElementById('searchBtn');
+const searchPanel = document.getElementById('searchPanel');
+const searchInput = document.getElementById('searchPanelInput');
+document.getElementById('searchPanelClose').addEventListener('click', () => searchPanel.classList.remove('open'));
+searchBtn.addEventListener('click', () => {
+  const o = searchPanel.classList.toggle('open');
+  if(o){ searchPanel.style.top = document.getElementById('navbar').getBoundingClientRect().bottom + 'px'; setTimeout(() => searchInput.focus(), 50); }
+});
+
+const burger = document.getElementById('navBurger');
+const mobMenu = document.getElementById('mobMenu');
+const mobOverlay = document.getElementById('mobOverlay');
+burger.addEventListener('click', () => { mobMenu.classList.add('open'); mobOverlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow='hidden'; });
+[document.getElementById('mobClose'), mobOverlay].forEach(el => el.addEventListener('click', () => { mobMenu.classList.remove('open'); mobOverlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }));
+</script>
+</body>
+</html>

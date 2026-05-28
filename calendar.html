@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Календар подій — ТНУ</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1C2B4A;--gray:#F0F2F5;--white:#FFFFFF;--text:#1A1A1A;--muted:#6B7280;--border:#D8DCE4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;color:var(--text);background:#fff;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+.container{max-width:1200px;margin:0 auto;padding:0 24px;}
+.utility{background:var(--navy);height:30px;display:flex;align-items:center;font-size:11px;}
+.utility>.container{width:100%;}
+.utility-inner{display:flex;justify-content:space-between;align-items:center;width:100%;gap:32px;}
+.utility-name{color:rgba(255,255,255,.88);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+.utility-right{display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.utility-right a{color:rgba(255,255,255,.7);}
+.utility-right a:hover{color:#fff;}
+.utility-sep{width:1px;height:11px;background:rgba(255,255,255,.2);}
+.utility-lang{display:flex;gap:6px;color:rgba(255,255,255,.5);}
+.utility-lang b{color:#fff;}
+.navbar{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.nav-inner{height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-box{width:36px;height:36px;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.nav-links{display:flex;list-style:none;height:64px;}
+.nav-item{height:100%;display:flex;align-items:center;}
+.nav-item>a{padding:0 16px;height:100%;display:flex;align-items:center;font-size:15px;font-weight:500;color:var(--text);border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-item>a:hover{color:var(--navy);border-bottom-color:var(--navy);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-search{width:36px;height:36px;background:transparent;border:none;color:var(--navy);display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.btn-apply{height:36px;padding:0 18px;background:var(--navy);color:#fff;font-size:13px;font-weight:600;border:none;transition:background .15s;border-radius:6px;}
+.btn-apply:hover{background:#111e33;}
+.search-panel{position:fixed;top:64px;left:0;right:0;z-index:99;background:#fff;border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1),box-shadow .32s;}
+.search-panel.open{max-height:80px;box-shadow:0 6px 20px rgba(0,0,0,.06);}
+.search-panel-inner{display:flex;align-items:center;height:80px;gap:14px;}
+.search-panel-input{flex:1;height:44px;border:none;border-bottom:2px solid var(--navy);font-family:inherit;font-size:17px;color:var(--text);background:transparent;outline:none;padding:0 6px;}
+.search-panel-input::placeholder{color:var(--muted);}
+.search-panel-close{background:transparent;border:none;color:var(--muted);font-size:26px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;line-height:1;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:transparent;border:none;cursor:pointer;padding:6px;margin-left:8px;}
+.nav-burger span{display:block;width:20px;height:2px;background:var(--navy);border-radius:1px;transition:transform .2s,opacity .2s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;}
+.mob-overlay.open{display:block;}
+.mob-menu{position:fixed;top:0;right:-320px;width:min(300px,90vw);height:100%;background:#fff;z-index:400;box-shadow:-6px 0 32px rgba(0,0,0,.14);transition:right .28s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+.mob-menu.open{right:0;}
+.mob-head{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.mob-logo{display:flex;align-items:center;gap:8px;}
+.mob-logo-box{width:28px;height:28px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.mob-logo-label{font-size:11px;font-weight:700;color:var(--navy);line-height:1.3;}
+.mob-close{width:32px;height:32px;background:transparent;border:none;font-size:22px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.mob-nav{flex:1;}
+.mob-item{border-bottom:1px solid var(--border);}
+.mob-item-head{display:flex;align-items:center;padding:14px 20px;font-size:15px;font-weight:500;color:var(--text);}
+.mob-item-head a{color:inherit;}
+.mob-footer-block{padding:16px 20px;border-top:1px solid var(--border);}
+.mob-apply-btn{display:block;width:100%;height:44px;background:var(--navy);color:#fff;font-family:inherit;font-size:14px;font-weight:600;border:none;cursor:pointer;border-radius:6px;}
+/* BREADCRUMB */
+.breadcrumb{height:40px;border-bottom:1px solid var(--border);display:flex;align-items:center;font-size:13px;color:var(--muted);}
+.breadcrumb>.container{display:flex;align-items:center;width:100%;}
+.breadcrumb a{color:var(--muted);}
+.breadcrumb a:hover{color:var(--navy);text-decoration:underline;}
+.breadcrumb span{margin:0 6px;}
+/* PAGE HEADER */
+.page-header{padding:32px 0 24px;}
+.page-header h1{font-size:32px;font-weight:700;color:var(--navy);letter-spacing:-.3px;}
+/* CALENDAR */
+.cal-section{padding:0 0 72px;}
+.cal-nav{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.cal-month-title{font-size:20px;font-weight:700;color:var(--navy);min-width:200px;}
+.cal-nav-btn{width:36px;height:36px;background:var(--gray);border:none;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--navy);cursor:pointer;transition:background .15s;flex-shrink:0;}
+.cal-nav-btn:hover{background:var(--border);}
+.cal-grid{border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);background:var(--navy);}
+.cal-dow{color:rgba(255,255,255,.8);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:10px 0;text-align:center;}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);}
+.cal-cell{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 12px;min-height:100px;position:relative;vertical-align:top;}
+.cal-cell:nth-child(7n){border-right:none;}
+.cal-cell.empty{background:var(--gray);opacity:.5;}
+.cal-cell.has-event{background:#f4f6ff;}
+.cal-day-num{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;}
+.cal-cell.has-event .cal-day-num{color:var(--navy);}
+.cal-event-chip{display:block;margin-top:4px;background:var(--navy);color:#fff;font-size:11px;font-weight:500;padding:5px 8px;border-radius:4px;line-height:1.35;cursor:pointer;transition:background .15s;}
+.cal-event-chip:hover{background:#111e33;text-decoration:none;}
+/* UPCOMING EVENTS SIDEBAR LIST */
+.cal-layout{display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start;}
+.upcoming{border:1px solid var(--border);border-radius:6px;overflow:hidden;position:sticky;top:84px;}
+.upcoming-head{background:var(--navy);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:12px 16px;}
+.upcoming-item{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;}
+.upcoming-item:last-child{border-bottom:none;}
+.upcoming-date{flex-shrink:0;text-align:center;background:var(--gray);border-radius:6px;padding:6px 10px;min-width:44px;}
+.upcoming-day{font-size:20px;font-weight:700;color:var(--navy);line-height:1;}
+.upcoming-month{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+.upcoming-title{font-size:13px;font-weight:600;color:var(--navy);line-height:1.35;display:block;margin-bottom:4px;}
+.upcoming-title:hover{text-decoration:underline;}
+.upcoming-loc{font-size:12px;color:var(--muted);}
+/* FOOTER */
+.footer{background:var(--navy);color:rgba(255,255,255,.72);padding:56px 0 0;font-size:14px;}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-logo-box{width:36px;height:36px;background:rgba(255,255,255,.12);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.footer-logo-top{font-size:13px;font-weight:700;color:#fff;}
+.footer-logo-bot{font-size:11px;color:rgba(255,255,255,.45);}
+.footer-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.6);max-width:260px;}
+.footer h4{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:16px;}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer ul li a{font-size:14px;color:rgba(255,255,255,.65);}
+.footer ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.38);}
+@media(max-width:900px){
+  .cal-layout{grid-template-columns:1fr;}
+  .upcoming{position:static;}
+}
+@media(max-width:768px){
+  .container{padding:0 16px;}
+  .nav-links,.btn-apply{display:none;}
+  .nav-burger{display:flex;}
+  .nav-inner{height:56px;}
+  .page-header h1{font-size:24px;}
+  .cal-cell{min-height:64px;padding:6px 8px;}
+  .cal-dow{font-size:9px;padding:8px 0;}
+  .cal-event-chip{font-size:10px;padding:3px 6px;}
+  .footer{padding:36px 0 0;}
+  .footer-grid{grid-template-columns:1fr;gap:20px;padding-bottom:28px;}
+  .footer-bottom{flex-direction:column;gap:4px;text-align:center;padding:12px 0;}
+}
+@media(min-width:1440px){.container{max-width:1360px;}}
+</style>
+</head>
+<body>
+
+<div class="utility"><div class="container"><div class="utility-inner">
+  <span class="utility-name">Таврійський національний університет імені В. І. Вернадського</span>
+  <div class="utility-right">
+    <a href="#">Бібліотека</a><a href="#">Розклад</a>
+    <div class="utility-sep"></div>
+    <div class="utility-lang"><b>UA</b> <span>|</span> <a href="#" style="color:rgba(255,255,255,.5)">EN</a></div>
+  </div>
+</div></div></div>
+
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><div class="logo-box">ТНУ</div></a>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#">Університет</a></li>
+      <li class="nav-item"><a href="#">Вступникам</a></li>
+      <li class="nav-item"><a href="#">Студентам</a></li>
+      <li class="nav-item"><a href="#">Наука</a></li>
+      <li class="nav-item"><a href="news.html">Новини</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="btn-search" id="searchBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button class="btn-apply">Подати документи</button>
+      <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="search-panel" id="searchPanel"><div class="container"><div class="search-panel-inner">
+  <input class="search-panel-input" id="searchPanelInput" type="text" placeholder="Пошук по сайту...">
+  <button class="search-panel-close" id="searchPanelClose">×</button>
+</div></div></div>
+
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-menu" id="mobMenu">
+  <div class="mob-head"><div class="mob-logo"><div class="mob-logo-box">ТНУ</div><div class="mob-logo-label">Таврійський<br>національний</div></div><button class="mob-close" id="mobClose">×</button></div>
+  <div class="mob-nav">
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Університет</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Вступникам</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Студентам</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="#">Наука</a></div></div>
+    <div class="mob-item"><div class="mob-item-head"><a href="news.html">Новини</a></div></div>
+  </div>
+  <div class="mob-footer-block"><button class="mob-apply-btn">Подати документи</button></div>
+</div>
+
+<div class="breadcrumb"><div class="container">
+  <a href="index.html">ТНУ</a><span>/</span>
+  <span style="color:var(--text)">Календар подій</span>
+</div></div>
+
+<div class="page-header"><div class="container">
+  <h1>Календар подій</h1>
+</div></div>
+
+<div class="cal-section"><div class="container">
+  <div class="cal-layout">
+    <div>
+      <div class="cal-nav">
+        <button class="cal-nav-btn" id="calPrev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></button>
+        <div class="cal-month-title" id="calMonthTitle"></div>
+        <button class="cal-nav-btn" id="calNext"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-dow-row">
+          <div class="cal-dow">Пн</div>
+          <div class="cal-dow">Вт</div>
+          <div class="cal-dow">Ср</div>
+          <div class="cal-dow">Чт</div>
+          <div class="cal-dow">Пт</div>
+          <div class="cal-dow">Сб</div>
+          <div class="cal-dow">Нд</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+      </div>
+    </div>
+    <div>
+      <div class="upcoming">
+        <div class="upcoming-head">Найближчі події</div>
+        <div id="upcoming-list"></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<footer class="footer"><div class="container">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><div class="footer-logo-box">ТНУ</div><div><div class="footer-logo-top">Таврійський національний</div><div class="footer-logo-bot">університет</div></div></div>
+      <p class="footer-desc">Сучасний класичний університет з більш ніж 100-річною історією.</p>
+    </div>
+    <div><h4>Університет</h4><ul><li><a href="#">Про ТНУ</a></li><li><a href="#">Структура</a></li><li><a href="#">Керівництво</a></li></ul></div>
+    <div><h4>Освіта</h4><ul><li><a href="programs.html">Програми</a></li><li><a href="#">Вступ 2026</a></li><li><a href="#">Розклад</a></li></ul></div>
+    <div><h4>Контакти</h4><ul><li><a href="tel:+380445290516">+38 (044) 529 05 16</a></li><li><a href="mailto:office@tnu.edu.ua">office@tnu.edu.ua</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Таврійський національний університет</span><span>Усі права захищені</span></div>
+</div></footer>
+
+<script src="events-data.js"></script>
+<script>
+(function(){
+  const MONTHS_UA = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
+  const MONTHS_GEN = ['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
+
+  let curYear = 2026, curMonth = 5; // 0-indexed: 5 = June
+
+  function render(){
+    // Month title
+    document.getElementById('calMonthTitle').textContent = MONTHS_UA[curMonth] + ' ' + curYear;
+
+    // Build calendar
+    const daysEl = document.getElementById('calDays');
+    daysEl.innerHTML = '';
+
+    // First day of month (0=Sun, 1=Mon...) → convert to Mon-based (0=Mon)
+    const firstDay = new Date(curYear, curMonth, 1).getDay();
+    const startOffset = (firstDay === 0 ? 6 : firstDay - 1); // Mon=0
+    const daysInMonth = new Date(curYear, curMonth + 1, 0).getDate();
+
+    // Event map: day → event
+    const evMap = {};
+    eventsData.forEach(ev => {
+      if(ev.year === curYear && ev.month === curMonth + 1) evMap[ev.day] = ev;
+    });
+
+    // Empty cells before month start
+    for(let i = 0; i < startOffset; i++){
+      daysEl.innerHTML += '<div class="cal-cell empty"></div>';
+    }
+    // Day cells
+    for(let d = 1; d <= daysInMonth; d++){
+      const ev = evMap[d];
+      const hasEvent = !!ev;
+      daysEl.innerHTML += `<div class="cal-cell${hasEvent ? ' has-event' : ''}">
+        <span class="cal-day-num">${d}</span>
+        ${hasEvent ? `<a href="event.html?id=${ev.id}" class="cal-event-chip">${ev.title}</a>` : ''}
+      </div>`;
+    }
+
+    // Upcoming list
+    const monthEvents = eventsData.filter(ev => ev.year === curYear && ev.month === curMonth + 1);
+    const upcomingEl = document.getElementById('upcoming-list');
+    if(monthEvents.length === 0){
+      upcomingEl.innerHTML = '<div style="padding:16px;font-size:13px;color:var(--muted)">Подій у цьому місяці немає</div>';
+    } else {
+      upcomingEl.innerHTML = monthEvents.map(ev => `
+        <div class="upcoming-item">
+          <div class="upcoming-date">
+            <div class="upcoming-day">${ev.day}</div>
+            <div class="upcoming-month">${MONTHS_GEN[ev.month-1].slice(0,3)}</div>
+          </div>
+          <div>
+            <a href="event.html?id=${ev.id}" class="upcoming-title">${ev.title}</a>
+            <div class="upcoming-loc">${ev.location} · ${ev.time}</div>
+          </div>
+        </div>`).join('');
+    }
+  }
+
+  document.getElementById('calPrev').addEventListener('click', () => {
+    curMonth--; if(curMonth < 0){ curMonth = 11; curYear--; } render();
+  });
+  document.getElementById('calNext').addEventListener('click', () => {
+    curMonth++; if(curMonth > 11){ curMonth = 0; curYear++; } render();
+  });
+
+  render();
+})();
+
+const searchBtn = document.getElementById('searchBtn');
+const searchPanel = document.getElementById('searchPanel');
+const searchInput = document.getElementById('searchPanelInput');
+document.getElementById('searchPanelClose').addEventListener('click', () => searchPanel.classList.remove('open'));
+searchBtn.addEventListener('click', () => {
+  const o = searchPanel.classList.toggle('open');
+  if(o){ searchPanel.style.top = document.getElementById('navbar').getBoundingClientRect().bottom + 'px'; setTimeout(() => searchInput.focus(), 50); }
+});
+const burger = document.getElementById('navBurger');
+const mobMenu = document.getElementById('mobMenu');
+const mobOverlay = document.getElementById('mobOverlay');
+burger.addEventListener('click', () => { mobMenu.classList.add('open'); mobOverlay.classList.add('open'); burger.classList.add('open'); document.body.style.overflow='hidden'; });
+[document.getElementById('mobClose'), mobOverlay].forEach(el => el.addEventListener('click', () => { mobMenu.classList.remove('open'); mobOverlay.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }));
+</script>
+</body>
+</html>
