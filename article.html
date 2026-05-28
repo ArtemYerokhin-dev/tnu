@@ -89,12 +89,9 @@ button{font-family:inherit;cursor:pointer;}
 .article-meta span{margin:0 8px;color:var(--border);}
 .article h1{font-size:34px;font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:24px;letter-spacing:-.3px;}
 .article-lead{font-size:18px;color:var(--text);line-height:1.7;margin-bottom:32px;}
-.article-cover{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;border-radius:6px;margin-bottom:32px;display:block;background:var(--gray);cursor:pointer;}
+.article-cover{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:50% 20%;border-radius:6px;margin-bottom:32px;display:block;background:var(--gray);cursor:pointer;}
 .article p{font-size:16px;color:var(--text);line-height:1.75;margin-bottom:22px;}
-.article-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:28px 0 12px;}
-.article-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;border-radius:6px;display:block;background:var(--gray);cursor:pointer;transition:opacity .15s;}
-.article-gallery img:hover{opacity:.88;}
-.gallery-footer{margin-bottom:28px;}
+.gallery-footer{margin:28px 0;}
 .gallery-all-btn{background:none;border:none;padding:0;font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
 .gallery-all-btn:hover{text-decoration:underline;}
 /* LIGHTBOX */
@@ -389,11 +386,7 @@ button{font-family:inherit;cursor:pointer;}
   document.getElementById('bc-cat').textContent = n.category;
 
   const bodyHTML = n.body.map(p => `<p>${p}</p>`).join('');
-  const galImgs = n.imgs.slice(1).map((src, i) =>
-    `<img src="${src}" alt="" loading="lazy" onerror="this.style.display='none'" onclick="openLightbox(${i+1})">`
-  ).join('');
   const galleryBlock = n.imgs.length > 1 ? `
-    <div class="article-gallery">${galImgs}</div>
     <div class="gallery-footer">
       <button class="gallery-all-btn" onclick="openLightbox(0)">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m3 9 18 0M9 21V9"/></svg>
