@@ -164,7 +164,13 @@ button{font-family:inherit;cursor:pointer;}
   .page-body{padding:32px 0 48px;}
   .page-layout{grid-template-columns:1fr;gap:32px;}
   .page-sidebar{position:static;}
-  .member-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .member-table thead{display:none;}
+  .member-table,.member-table tbody,.member-table tr,.member-table td{display:block;width:100%;}
+  .member-table tr{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:10px;}
+  .member-table tr:last-child{margin-bottom:0;}
+  .member-table td{padding:2px 0;border:none;font-size:13px;color:var(--muted);}
+  .member-table td:first-child{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;padding-bottom:4px;}
+  .member-table td:nth-child(2){font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
   .footer{padding:36px 0 0;}
   .footer-grid{grid-template-columns:1fr;gap:20px;padding-bottom:28px;}
   .footer-bottom{flex-direction:column;gap:4px;text-align:center;padding:12px 0;}
