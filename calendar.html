@@ -74,30 +74,30 @@ button{font-family:inherit;cursor:pointer;}
 .page-header h1{font-size:32px;font-weight:700;color:var(--navy);letter-spacing:-.3px;}
 /* CALENDAR */
 .cal-section{padding:0 0 72px;}
+.cal-wrap{max-width:860px;margin:0 auto;}
 .cal-nav{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
 .cal-month-title{font-size:20px;font-weight:700;color:var(--navy);min-width:200px;}
 .cal-nav-btn{width:36px;height:36px;background:var(--gray);border:none;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--navy);cursor:pointer;transition:background .15s;flex-shrink:0;}
 .cal-nav-btn:hover{background:var(--border);}
 .cal-grid{border:1px solid var(--border);border-radius:6px;overflow:hidden;}
 .cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);background:var(--navy);}
-.cal-dow{color:rgba(255,255,255,.8);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:10px 0;text-align:center;}
+.cal-dow{color:rgba(255,255,255,.8);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:12px 0;text-align:center;}
 .cal-days{display:grid;grid-template-columns:repeat(7,1fr);}
-.cal-cell{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 12px;min-height:100px;position:relative;vertical-align:top;}
+.cal-cell{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 14px;min-height:120px;position:relative;vertical-align:top;}
 .cal-cell:nth-child(7n){border-right:none;}
-.cal-cell.empty{background:var(--gray);opacity:.5;}
-.cal-cell.has-event{background:#f4f6ff;}
+.cal-cell.empty{background:var(--gray);opacity:.4;}
+.cal-cell.has-event{background:rgba(224,229,255,0.45);}
 .cal-day-num{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;}
-.cal-cell.has-event .cal-day-num{color:var(--navy);}
-.cal-event-chip{display:block;margin-top:4px;background:var(--navy);color:#fff;font-size:11px;font-weight:500;padding:5px 8px;border-radius:4px;line-height:1.35;cursor:pointer;transition:background .15s;}
-.cal-event-chip:hover{background:#111e33;text-decoration:none;}
-/* UPCOMING EVENTS SIDEBAR LIST */
-.cal-layout{display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start;}
-.upcoming{border:1px solid var(--border);border-radius:6px;overflow:hidden;position:sticky;top:84px;}
-.upcoming-head{background:var(--navy);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:12px 16px;}
-.upcoming-item{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;}
-.upcoming-item:last-child{border-bottom:none;}
-.upcoming-date{flex-shrink:0;text-align:center;background:var(--gray);border-radius:6px;padding:6px 10px;min-width:44px;}
-.upcoming-day{font-size:20px;font-weight:700;color:var(--navy);line-height:1;}
+.cal-cell.has-event .cal-day-num{color:var(--navy);font-weight:700;}
+.cal-event-chip{display:block;margin-top:4px;background:rgba(28,43,74,0.72);color:#fff;font-size:11px;font-weight:500;padding:5px 8px;border-radius:4px;line-height:1.35;cursor:pointer;transition:background .15s;}
+.cal-event-chip:hover{background:rgba(28,43,74,0.9);text-decoration:none;}
+/* UPCOMING EVENTS — row below calendar */
+.upcoming-section{margin-top:32px;}
+.upcoming-head-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.upcoming-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.upcoming-card{border:1px solid var(--border);border-radius:6px;padding:16px;display:flex;gap:14px;align-items:flex-start;}
+.upcoming-date{flex-shrink:0;text-align:center;background:var(--gray);border-radius:6px;padding:8px 12px;min-width:48px;}
+.upcoming-day{font-size:22px;font-weight:700;color:var(--navy);line-height:1;}
 .upcoming-month{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
 .upcoming-title{font-size:13px;font-weight:600;color:var(--navy);line-height:1.35;display:block;margin-bottom:4px;}
 .upcoming-title:hover{text-decoration:underline;}
@@ -115,10 +115,6 @@ button{font-family:inherit;cursor:pointer;}
 .footer ul li a{font-size:14px;color:rgba(255,255,255,.65);}
 .footer ul li a:hover{color:#fff;}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.38);}
-@media(max-width:900px){
-  .cal-layout{grid-template-columns:1fr;}
-  .upcoming{position:static;}
-}
 @media(max-width:768px){
   .container{padding:0 16px;}
   .nav-links,.btn-apply{display:none;}
@@ -128,6 +124,7 @@ button{font-family:inherit;cursor:pointer;}
   .cal-cell{min-height:64px;padding:6px 8px;}
   .cal-dow{font-size:9px;padding:8px 0;}
   .cal-event-chip{font-size:10px;padding:3px 6px;}
+  .upcoming-row{grid-template-columns:1fr;}
   .footer{padding:36px 0 0;}
   .footer-grid{grid-template-columns:1fr;gap:20px;padding-bottom:28px;}
   .footer-bottom{flex-direction:column;gap:4px;text-align:center;padding:12px 0;}
@@ -192,31 +189,27 @@ button{font-family:inherit;cursor:pointer;}
 </div></div>
 
 <div class="cal-section"><div class="container">
-  <div class="cal-layout">
-    <div>
-      <div class="cal-nav">
-        <button class="cal-nav-btn" id="calPrev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></button>
-        <div class="cal-month-title" id="calMonthTitle"></div>
-        <button class="cal-nav-btn" id="calNext"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button>
-      </div>
-      <div class="cal-grid">
-        <div class="cal-dow-row">
-          <div class="cal-dow">Пн</div>
-          <div class="cal-dow">Вт</div>
-          <div class="cal-dow">Ср</div>
-          <div class="cal-dow">Чт</div>
-          <div class="cal-dow">Пт</div>
-          <div class="cal-dow">Сб</div>
-          <div class="cal-dow">Нд</div>
-        </div>
-        <div class="cal-days" id="calDays"></div>
-      </div>
+  <div class="cal-wrap">
+    <div class="cal-nav">
+      <button class="cal-nav-btn" id="calPrev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></button>
+      <div class="cal-month-title" id="calMonthTitle"></div>
+      <button class="cal-nav-btn" id="calNext"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button>
     </div>
-    <div>
-      <div class="upcoming">
-        <div class="upcoming-head">Найближчі події</div>
-        <div id="upcoming-list"></div>
+    <div class="cal-grid">
+      <div class="cal-dow-row">
+        <div class="cal-dow">Пн</div>
+        <div class="cal-dow">Вт</div>
+        <div class="cal-dow">Ср</div>
+        <div class="cal-dow">Чт</div>
+        <div class="cal-dow">Пт</div>
+        <div class="cal-dow">Сб</div>
+        <div class="cal-dow">Нд</div>
       </div>
+      <div class="cal-days" id="calDays"></div>
+    </div>
+    <div class="upcoming-section">
+      <div class="upcoming-head-label">Найближчі події</div>
+      <div class="upcoming-row" id="upcoming-list"></div>
     </div>
   </div>
 </div></div>
@@ -279,10 +272,10 @@ button{font-family:inherit;cursor:pointer;}
     const monthEvents = eventsData.filter(ev => ev.year === curYear && ev.month === curMonth + 1);
     const upcomingEl = document.getElementById('upcoming-list');
     if(monthEvents.length === 0){
-      upcomingEl.innerHTML = '<div style="padding:16px;font-size:13px;color:var(--muted)">Подій у цьому місяці немає</div>';
+      upcomingEl.innerHTML = '<div style="grid-column:1/-1;padding:16px;font-size:13px;color:var(--muted)">Подій у цьому місяці немає</div>';
     } else {
       upcomingEl.innerHTML = monthEvents.map(ev => `
-        <div class="upcoming-item">
+        <div class="upcoming-card">
           <div class="upcoming-date">
             <div class="upcoming-day">${ev.day}</div>
             <div class="upcoming-month">${MONTHS_GEN[ev.month-1].slice(0,3)}</div>
