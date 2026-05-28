@@ -675,30 +675,7 @@ button{font-family:inherit;cursor:pointer;}
           <a href="news.html" class="section-link">Усі новини →</a>
         </div>
 
-        <article class="news-featured">
-          <div class="news-featured-img"><img src="https://tnu.edu.ua/wp-content/uploads/2026/05/7da9a945-4b84-4c5.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'"></div>
-          <div class="news-meta">27 травня 2026 · Партнерство</div>
-          <a href="article.html?id=aiesec" class="news-featured-title">Знайомство студентів з AIESEC — однією з найбільших міжнародних молодіжних організацій, яка об'єднує активну молодь у понад 100 країнах світу</a>
-          <p class="news-excerpt">В інституті філології та журналістики відбулася зустріч студентів з представником AIESEC у Києві — розмова про міжнародні стажування та розвиток лідерства.</p>
-        </article>
-
-        <article class="news-item">
-          <div class="news-item-img"><img src="https://tnu.edu.ua/wp-content/uploads/2026/05/0ccff2c2-64de-418c-8281-41d.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'"></div>
-          <div class="news-item-text">
-            <div class="news-meta">26 травня 2026 · Студентське життя</div>
-            <a href="article.html?id=firstaid" class="news-title">Тренінг з домедичної екстреної допомоги</a>
-            <p class="news-excerpt" style="font-size:14px;color:var(--muted)">Волонтерський відділ організував тренінг з першої допомоги для першокурсників — необхідні навички в умовах воєнного часу.</p>
-          </div>
-        </article>
-
-        <article class="news-item">
-          <div class="news-item-img"><img src="https://tnu.edu.ua/wp-content/uploads/2026/05/9e6c6e9f-b4bf-4385-bcac-8e763bdfdb51.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'"></div>
-          <div class="news-item-text">
-            <div class="news-meta">26 травня 2026 · Наука</div>
-            <a href="article.html?id=radiofrance" class="news-title">Французьке національне радіо у ТНУ: сучасні виклики міжнародного гуманітарного права</a>
-            <p class="news-excerpt" style="font-size:14px;color:var(--muted)">Журналіст Radio France відвідала університет для підготовки матеріалу про правові аспекти автономних систем у збройних конфліктах.</p>
-          </div>
-        </article>
+        <div id="home-news-items"></div>
 
       </div>
 
@@ -812,7 +789,36 @@ button{font-family:inherit;cursor:pointer;}
   </div>
 </footer>
 
+<script src="news-data.js"></script>
 <script>
+// Render homepage news from shared newsData
+(function(){
+  const el = document.getElementById('home-news-items');
+  if(!el || typeof newsData === 'undefined') return;
+  const imgStyle = 'width:100%;height:100%;object-fit:cover;display:block;';
+  const errHandler = "this.style.display='none'";
+  // featured (first item)
+  const f = newsData[0];
+  let html = `<article class="news-featured">
+    <div class="news-featured-img"><img src="${f.img}" alt="" style="${imgStyle}" onerror="${errHandler}"></div>
+    <div class="news-meta">${f.date} · ${f.category}</div>
+    <a href="article.html?id=${f.id}" class="news-featured-title">${f.title}</a>
+    <p class="news-excerpt">${f.excerpt}</p>
+  </article>`;
+  // smaller items (items 2 and 3)
+  newsData.slice(1, 3).forEach(n => {
+    html += `<article class="news-item">
+      <div class="news-item-img"><img src="${n.img}" alt="" style="${imgStyle}" onerror="${errHandler}"></div>
+      <div class="news-item-text">
+        <div class="news-meta">${n.date} · ${n.category}</div>
+        <a href="article.html?id=${n.id}" class="news-title">${n.title}</a>
+        <p class="news-excerpt" style="font-size:14px;color:var(--muted)">${n.excerpt}</p>
+      </div>
+    </article>`;
+  });
+  el.innerHTML = html;
+})();
+
 // Mega menu
 const navItems = document.querySelectorAll('.has-mega');
 const navbar = document.getElementById('navbar');
