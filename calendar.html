@@ -124,12 +124,11 @@ button{font-family:inherit;cursor:pointer;}
   .nav-burger{display:flex;}
   .nav-inner{height:56px;}
   .page-header h1{font-size:24px;}
-  .cal-days{grid-auto-rows:52px;}
-  .cal-cell{padding:6px 4px;overflow:hidden;height:52px;}
-  .cal-day-num{font-size:12px;margin-bottom:4px;}
+  .cal-days{grid-auto-rows:72px;}
+  .cal-cell{padding:6px 4px;overflow:hidden;height:72px;}
+  .cal-day-num{font-size:12px;margin-bottom:3px;}
   .cal-dow{font-size:9px;padding:8px 0;}
-  .cal-event-chip{display:block!important;white-space:nowrap!important;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:unset;font-size:0;padding:0;margin-top:4px;background:transparent;}
-  .cal-event-chip::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--navy);}
+  .cal-event-chip{font-size:10px;padding:3px 6px;}
   .cal-layout{grid-template-columns:1fr;}
   .cal-sidebar{position:static;}
   .upcoming-section{margin-top:24px;}
@@ -276,7 +275,7 @@ button{font-family:inherit;cursor:pointer;}
       const hasEvent = !!ev;
       daysEl.innerHTML += `<div class="cal-cell${hasEvent ? ' has-event' : ''}">
         <span class="cal-day-num">${d}</span>
-        ${hasEvent ? `<a href="event.html?id=${ev.id}" class="cal-event-chip">${ev.title}</a>` : ''}
+        ${hasEvent ? `<a href="event.html?id=${ev.id}" class="cal-event-chip" title="${ev.title}">${ev.title.split(' ').slice(0,2).join(' ')}…</a>` : ''}
       </div>`;
     }
 
