@@ -124,11 +124,12 @@ button{font-family:inherit;cursor:pointer;}
   .nav-burger{display:flex;}
   .nav-inner{height:56px;}
   .page-header h1{font-size:24px;}
-  .cal-days{grid-auto-rows:72px;}
-  .cal-cell{padding:6px 4px;overflow:hidden;height:72px;}
-  .cal-day-num{font-size:12px;margin-bottom:3px;}
+  .cal-days{grid-auto-rows:52px;}
+  .cal-cell{padding:6px 4px;overflow:hidden;height:52px;}
+  .cal-day-num{font-size:12px;margin-bottom:4px;}
   .cal-dow{font-size:9px;padding:8px 0;}
-  .cal-event-chip{font-size:9px;padding:2px 4px;line-height:1.2;max-height:28px;overflow:hidden;-webkit-line-clamp:2;margin-top:2px;}
+  .cal-event-chip{display:block!important;white-space:nowrap!important;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:unset;font-size:0;padding:0;margin-top:4px;background:transparent;}
+  .cal-event-chip::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--navy);}
   .cal-layout{grid-template-columns:1fr;}
   .cal-sidebar{position:static;}
   .upcoming-section{margin-top:24px;}
