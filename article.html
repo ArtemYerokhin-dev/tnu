@@ -436,10 +436,12 @@ button{font-family:inherit;cursor:pointer;}
   document.getElementById('more-grid').innerHTML = others.map(x => `
     <div class="more-card">
       <img class="more-card-img" src="${x.img}" alt="${x.title}" loading="lazy" onerror="this.style.display='none'">
-      <div class="more-meta">${x.category} · ${x.date}</div>
-      <a href="article.html?id=${x.id}" class="more-title">${x.title}</a>
-      <p class="more-excerpt">${x.excerpt}</p>
-      <a href="article.html?id=${x.id}" class="more-read">Читати →</a>
+      <div>
+        <div class="more-meta">${x.category} · ${x.date}</div>
+        <a href="article.html?id=${x.id}" class="more-title">${x.title}</a>
+        <p class="more-excerpt">${x.excerpt}</p>
+        <a href="article.html?id=${x.id}" class="more-read">Читати →</a>
+      </div>
     </div>
   `).join('');
 })();
