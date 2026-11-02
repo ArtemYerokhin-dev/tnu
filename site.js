@@ -3,12 +3,25 @@
   function fresh(el){ if(!el) return el; var c=el.cloneNode(true); el.parentNode.replaceChild(c,el); return c; }
   var q=function(s){return document.querySelector(s)}, qa=function(s){return [].slice.call(document.querySelectorAll(s))};
   fresh(q('.nav-links')); qa('.mega-wrap').forEach(fresh);
-  var navItems=qa('.has-mega'), megas=qa('.mega-wrap'), timer;
-  function closeMega(){ megas.forEach(function(m){m.classList.remove('open')}); navItems.forEach(function(i){i.classList.remove('open')}); }
-  function openMega(item){ clearTimeout(timer); closeMega(); var m=document.getElementById('menu-'+item.dataset.menu); if(m) m.classList.add('open'); item.classList.add('open'); }
+  var navItems=qa('.has-mega'), megas=qa('.mega-wrap'), timer, hover=window.matchMedia('(hover:hover)').matches;
+  function closeMega(){ megas.forEach(function(m){m.classList.remove('open')}); navItems.forEach(function(i){i.classList.remove('open'); i.firstElementChild.setAttribute('aria-expanded','false')}); }
+  function openMega(item){ clearTimeout(timer); closeMega(); var m=document.getElementById('menu-'+item.dataset.menu); if(m) m.classList.add('open'); item.classList.add('open'); item.firstElementChild.setAttribute('aria-expanded','true'); }
   function later(){ clearTimeout(timer); timer=setTimeout(closeMega,150); }
-  navItems.forEach(function(i){ i.addEventListener('mouseenter',function(){openMega(i)}); i.addEventListener('mouseleave',later); i.addEventListener('focusin',function(){openMega(i)}); });
-  megas.forEach(function(m){ m.addEventListener('mouseenter',function(){clearTimeout(timer)}); m.addEventListener('mouseleave',later); });
+  // Пункт із випадним меню нікуди не веде: мишею меню лише відкривається, на дотик і з клавіатури перемикається
+  navItems.forEach(function(i){
+    if(hover){ i.addEventListener('mouseenter',function(){openMega(i)}); i.addEventListener('mouseleave',later); }
+    i.firstElementChild.addEventListener('click',function(e){
+      if(hover&&e.detail){ openMega(i); return; }
+      if(i.classList.contains('open')){ closeMega(); return; }
+      openMega(i); if(!e.detail){ var a=q('#menu-'+i.dataset.menu+' a'); if(a) a.focus(); }
+    });
+  });
+  megas.forEach(function(m){
+    if(hover){ m.addEventListener('mouseenter',function(){clearTimeout(timer)}); m.addEventListener('mouseleave',later); }
+    m.addEventListener('click',function(e){ if(e.target.closest('a')) closeMega(); });
+    m.addEventListener('focusout',function(e){ if(e.relatedTarget&&!m.contains(e.relatedTarget)) closeMega(); });
+  });
+  document.addEventListener('click',function(e){ if(!e.target.closest('.has-mega,.mega-wrap')) closeMega(); });
   var btn=fresh(q('#searchBtn')), panel=q('#searchPanel'), input=q('#searchPanelInput'), close=fresh(q('#searchPanelClose'));
   function closeSearch(){ panel.classList.remove('open'); btn.classList.remove('active'); }
   btn.addEventListener('click',function(){ var o=panel.classList.toggle('open'); btn.classList.toggle('active',o); if(o){ panel.style.top=q('#navbar').getBoundingClientRect().bottom+'px'; setTimeout(function(){input.focus()},50); } });
