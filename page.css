@@ -207,3 +207,6 @@ button{font-family:inherit;cursor:pointer;}
 .stage b{white-space:nowrap}
 .section-title{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:14px}
 .sec{scroll-margin-top:84px}
+.page-hero[style]{background:linear-gradient(rgba(28,43,74,.74),rgba(28,43,74,.74)),var(--hero-img) var(--hero-pos,center)/cover no-repeat var(--navy)}
+.page-hero[style] .hero-badge{color:rgba(255,255,255,.88);background:rgba(255,255,255,.16)}
+.page-hero[style] .hero-slogan{color:rgba(255,255,255,.85)}
